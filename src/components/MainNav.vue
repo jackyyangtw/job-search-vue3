@@ -1,27 +1,51 @@
 <template>
   <header clss="w-full text-sm">
     <div class="flxed top-0 left-0 h-16 w-full bg-white">
-      <div class="mx-auto flex flex-nowrap h-full border-b border-solid border-brand-gray-1 px-8">
-        <a href="/" class="flex h-full items-center text-xl">{{ company }}</a>
+      <div
+        class="mx-auto flex flex-nowrap h-full border-b border-solid border-brand-gray-1 px-8 py-3"
+      >
+        <a :href="url" class="flex h-full items-center text-xl">{{ company }}</a>
+        <nav class="ml-12 h-full">
+          <ul class="flex h-full list-none">
+            <li class="ml-9 first:ml-0 h-full" v-for="item in menuItems" :key="item">
+              <a href="" class="flex h-full items-center py-2.5">{{ item }}</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="ml-auto flex h-full items-center">
+          <ActionButton @click="logIn" v-if="!isLoggedIn"></ActionButton>
+          <ProfileImage v-else />
+        </div>
       </div>
     </div>
+    <TheSubnav v-if="isLoggedIn" />
   </header>
 </template>
 
 <script>
+import ActionButton from './ActionButton.vue'
+import ProfileImage from './ProfileImage.vue'
+import TheSubnav from './TheSubnav.vue'
 export default {
   name: 'MainNav',
-  components: {},
+  components: { ActionButton, ProfileImage, TheSubnav },
   props: {},
   data() {
     return {
-      company: 'Bobo Career'
+      company: 'Bobo Career',
+      url: 'https://careers.google.com/',
+      menuItems: ['Teams', 'Locations', 'Life at Bobo Corp', 'How we hire', 'Students'],
+      isLoggedIn: false
     }
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {},
-  methods: {}
+  methods: {
+    logIn() {
+      this.isLoggedIn = true
+    }
+  }
 }
 </script>
