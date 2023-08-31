@@ -1,7 +1,7 @@
 <template>
   <div class="h-16 w-full border-b border-solid border-brand-grey-1 bg-white">
     <div class="flex items-center h-full px-8">
-      <div>
+      <div v-if="onJobResultsPage">
         <font-awesome-icon :icon="['fas', 'search']" class="mr-3" />
         <span>
           <span class="text-brand-green-1">1653</span>
@@ -18,7 +18,9 @@ export default {
   components: {},
   props: {},
   data() {
-    return {}
+    return {
+      onJobResultsPage: true
+    }
   },
   computed: {},
   watch: {},

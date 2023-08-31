@@ -3,15 +3,25 @@ import userEvent from "@testing-library/user-event";
 import MaunNav from "@/components/MainNav.vue";
 
 describe("MainNav", () => {
+  const renderComponent = () => {
+    render(MaunNav, {
+      global: {
+        stubs: {
+          FontAwesomeIcon: true,
+        },
+      },
+    });
+  };
+
   it("display company name", () => {
-    render(MaunNav);
+    renderComponent();
 
     const companyName = screen.getByText("Bobo Career"); // synchronous code, get for one element
     expect(companyName).toBeInTheDocument();
   });
 
   it("display menu items for navigation", () => {
-    render(MaunNav);
+    renderComponent();
 
     // 如果找不到元素，會出錯，test case 會失敗
     const menuItems = screen.getAllByRole("listitem"); // get all elements with role="listitem" > li
@@ -21,7 +31,7 @@ describe("MainNav", () => {
 
   describe("when the user logs in", () => {
     it("displays user profile picture", async () => {
-      render(MaunNav);
+      renderComponent();
 
       const queryOptions = {
         name: /user profile image/i, // 忽略大小寫

@@ -32,3 +32,11 @@
 - toEqual: 比較兩個值的"內容"是否相等(例如確認array的值)
 - queryByRole: 用於找尋特定的DOM元素，例如: queryByRole('button')，找尋button元素，如果找不到會回傳null
 - getByRole: 用於找尋特定的DOM元素，例如: getByRole('button')，找尋button元素，如果找不到會回傳error
+
+### Examples (components tests)
+
+- 忽略fontawesome的icon，否則會跳warning，聚焦於原本測試的component: tests/components/TheSubnav.test.js (使用global.stubs)
+
+## Mock functions
+
+- https://www.udemy.com/course/vue-masterclass/learn/lecture/35049096#questions
