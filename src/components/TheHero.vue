@@ -1,13 +1,14 @@
 <template>
   <main>
-    <section class="flex h-screen flex-col bg-yellow-200 pt-10 pb-20">
+    <section class="flex h-screen flex-col pt-10 pb-20">
       <div class="grid grid-cols-12">
-        <div class="col-start-1 col-span-1 border border-blue-700">1</div>
-        <div class="col-start-2 col-span-5 border border-blue-700">
+        <div class="col-start-1 col-span-1"></div>
+        <div class="col-start-2 col-span-5">
           <TheHeadline />
+          <JobSearchForm />
         </div>
-        <div class="col-start-7 col-span-5 border border-blue-700">5</div>
-        <div class="col-start-12 col-span-1 border border-blue-700">1</div>
+        <div class="col-start-7 col-span-5"></div>
+        <div class="col-start-12 col-span-1"></div>
       </div>
     </section>
   </main>
@@ -15,10 +16,12 @@
 
 <script>
 import TheHeadline from './TheHeadline.vue'
+import JobSearchForm from './JobSearchForm.vue'
 export default {
   name: 'TheHero',
   components: {
-    TheHeadline
+    TheHeadline,
+    JobSearchForm
   }
 }
 </script>

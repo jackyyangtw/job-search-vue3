@@ -40,3 +40,13 @@
 ## Mock functions
 
 - https://www.udemy.com/course/vue-masterclass/learn/lecture/35049096#questions
+- vi.fn: 用於模擬一個function，加速測試，例如: 模擬async function的回傳值
+- vi.stubGlobal: 用於模擬一個global function，例如: 模擬setTimeout、setInterval、clearTimeout
+- vi.useFakeTimers: 用於模擬setTimeout的時間，加速測試
+- vi.useRealTimers: 用於取消模擬setTimeout的時間，恢復正常
+- vi.advanceTimersToNextTimer: 用於模擬一條interval的時間通道
+
+## BeforeEach、AfterEach
+
+- 在每個測試開始前，或是結束後，執行一些動作
+- 例如: 開始測試時使用fakeTimers，結束測試時使用realTimers
