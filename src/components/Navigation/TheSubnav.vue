@@ -19,10 +19,14 @@ export default {
   props: {},
   data() {
     return {
-      onJobResultsPage: true
+      // onJobResultsPage: true
     }
   },
-  computed: {},
+  computed: {
+    onJobResultsPage() {
+      return this.$route.name === 'JobResults'
+    }
+  },
   watch: {},
   created() {},
   mounted() {},

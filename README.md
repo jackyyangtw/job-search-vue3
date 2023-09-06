@@ -33,10 +33,6 @@
 - queryByRole: 用於找尋特定的DOM元素，例如: queryByRole('button')，找尋button元素，如果找不到會回傳null
 - getByRole: 用於找尋特定的DOM元素，例如: getByRole('button')，找尋button元素，如果找不到會回傳error
 
-### Examples (components tests)
-
-- 忽略fontawesome的icon，否則會跳warning，聚焦於原本測試的component: tests/components/TheSubnav.test.js (使用global.stubs)
-
 ## Mock functions
 
 - https://www.udemy.com/course/vue-masterclass/learn/lecture/35049096#questions
@@ -50,3 +46,13 @@
 
 - 在每個測試開始前，或是結束後，執行一些動作
 - 例如: 開始測試時使用fakeTimers，結束測試時使用realTimers
+
+## Components
+
+- RouterLinkStub: 用於模擬router-link，例如: 模擬點擊router-link
+
+### Examples (components tests)
+
+- component: tests/components/TheSubnav.test.js
+  1. 忽略fontawesome的icon(global.stubs)，否則會跳warning
+  2. mock $route(global.mocks)，簡化實際上的$route

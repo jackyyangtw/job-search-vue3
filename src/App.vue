@@ -1,15 +1,13 @@
 <template>
   <MainNav />
-  <TheHero />
+  <router-view></router-view>
 </template>
 
 <script>
-import MainNav from '@/components/MainNav.vue'
-import TheHero from '@/components/TheHero.vue'
+import MainNav from '@/components/Navigation/MainNav.vue'
 export default {
   components: {
-    MainNav,
-    TheHero
+    MainNav
   }
 }
 </script>

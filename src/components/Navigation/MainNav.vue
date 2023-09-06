@@ -4,11 +4,13 @@
       <div
         class="mx-auto flex flex-nowrap h-full border-b border-solid border-brand-gray-1 px-8 py-3"
       >
-        <a :href="url" class="flex h-full items-center text-xl">{{ company }}</a>
+        <router-link to="/" class="flex h-full items-center text-xl">Bobo Career</router-link>
         <nav class="ml-12 h-full">
           <ul class="flex h-full list-none">
-            <li class="ml-9 first:ml-0 h-full" v-for="item in menuItems" :key="item">
-              <a href="" class="flex h-full items-center py-2.5">{{ item }}</a>
+            <li class="ml-9 first:ml-0 h-full" v-for="item in menuItems" :key="item.text">
+              <router-link :to="item.url" class="flex h-full items-center py-2.5">{{
+                item.text
+              }}</router-link>
             </li>
           </ul>
         </nav>
@@ -23,18 +25,23 @@
 </template>
 
 <script>
-import ActionButton from './ActionButton.vue'
+import ActionButton from '@/components/Shared/ActionButton.vue'
 import ProfileImage from './ProfileImage.vue'
-import TheSubnav from './TheSubnav.vue'
+import TheSubnav from '@/components/Navigation/TheSubnav.vue'
 export default {
   name: 'MainNav',
   components: { ActionButton, ProfileImage, TheSubnav },
   props: {},
   data() {
     return {
-      company: 'Bobo Career',
-      url: 'https://careers.google.com/',
-      menuItems: ['Teams', 'Locations', 'Life at Bobo Corp', 'How we hire', 'Students'],
+      menuItems: [
+        { text: 'Teams', url: '/' },
+        { text: 'Locations', url: '/' },
+        { text: 'Life at Bobo Corp', url: '/' },
+        { text: 'How we hire', url: '/' },
+        { text: 'Students', url: '/' },
+        { text: 'Jobs', url: '/jobs/results' }
+      ],
       isLoggedIn: false
     }
   },

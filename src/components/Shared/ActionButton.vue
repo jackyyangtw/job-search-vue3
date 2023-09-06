@@ -29,10 +29,10 @@ export default {
 
 <style scoped lang="postcss">
 button {
-  @apply rounded px-5 py-3;
+  @apply px-5 py-3;
 }
 .primary {
-  @apply border-0 bg-brand-blue-1 text-white hover:shadow-blue;
+  @apply rounded bg-brand-blue-1 text-white hover:shadow-blue;
 }
 .secondary {
   @apply bg-transparent text-brand-blue-1 hover:bg-brand-blue-2 hover:text-white;

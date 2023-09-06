@@ -1,30 +1,32 @@
 import {render, screen} from '@testing-library/vue'
-import TheSubnav from '@/components/TheSubnav.vue'
+import TheSubnav from '@/components/Navigation/TheSubnav.vue'
 
 describe('TheSubnav', () => {
 
-  const renderComponent = (isOnResultsPage) => {
+  const renderComponent = (route) => {
+    const $route = {
+      name: route
+    }
     render(TheSubnav, {
       global: {
         stubs: {
           FontAwesomeIcon: true
-        }
-      },
-      data() {
-        return {
-          onJobResultsPage: isOnResultsPage
+        },
+        mocks: {
+          $route,
         }
       }
     })
   }
   
+
   it('when user is on jobs page, the subnav should be shown',() => {
-    renderComponent(true);
+    renderComponent('JobResults');
     expect(screen.getByText('1653')).toBeInTheDocument()
   })
 
   it('when user is not on jobs page, the subnav should not be shown',() => {
-    renderComponent(false);
+    renderComponent('Home');
     expect(screen.queryByText('1653')).not.toBeInTheDocument()
   })
 })
