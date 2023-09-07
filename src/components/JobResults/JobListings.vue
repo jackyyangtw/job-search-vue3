@@ -30,21 +30,16 @@
 
 <script>
 import JobListing from './JobListing.vue'
-import axios from 'axios'
-
-const baseUrl = import.meta.env.VITE_APP_API_URL
+import { useJobsStore, FETCH_JOBS } from '@/stores/jobs'
+import { mapActions, mapState } from 'pinia'
 
 export default {
   name: 'JobListings',
   components: {
     JobListing
   },
-  data() {
-    return {
-      jobs: []
-    }
-  },
   computed: {
+    ...mapState(useJobsStore, ['jobs']),
     currentPage() {
       return parseInt(this.$route.query.page || '1')
     },
@@ -69,9 +64,11 @@ export default {
       return this.jobs.slice(firstIndex, lastIndex)
     }
   },
+  methods: {
+    ...mapActions(useJobsStore, [FETCH_JOBS])
+  },
   async created() {
-    const res = await axios.get(`${baseUrl}/jobs`)
-    this.jobs = res.data
+    this.FETCH_JOBS()
   }
 }
 </script>

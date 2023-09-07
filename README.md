@@ -42,6 +42,13 @@
 - vi.useRealTimers: 用於取消模擬setTimeout的時間，恢復正常
 - vi.advanceTimersToNextTimer: 用於模擬一條interval的時間通道
 
+### Mock pinia
+
+- mainNav.test.js
+- 如果沒有mock pinia，或是active pinia，測試就會fail
+- import createTestingPinia
+- const pinia = createTestingPinia({ stubActions: false });
+
 ### BeforeEach、AfterEach
 
 - 在每個測試開始前，或是結束後，執行一些動作

@@ -1,9 +1,8 @@
 import { render, screen } from '@testing-library/vue'
-import axios from 'axios'
 import { RouterLinkStub } from '@vue/test-utils'
 import JobListings from '@/components/JobResults/JobListings.vue'
-
-vi.mock("axios")
+import { createTestingPinia } from '@pinia/testing'
+import { useJobsStore } from '@/stores/jobs'
 
 const createRoute = (queryParams = {}) => ({
   query: {
@@ -12,34 +11,40 @@ const createRoute = (queryParams = {}) => ({
   }
 })
 
-const renderComponent = ($route) => render(JobListings, {
-  global: {
-    stubs: {
-      RouterLink: RouterLinkStub
-    },
-    mocks: {
-      $route,
+const renderComponent = ($route) => {
+  const pinia = createTestingPinia();
+  render(JobListings, {
+    global: {
+      plugins: [pinia],
+      stubs: {
+        RouterLink: RouterLinkStub
+      },
+      mocks: {
+        $route,
+      }
     }
-  }
-})
+  })
+} 
 
-const getRequest = (getMoreData = true) => {
-  const data = getMoreData ? Array(15).fill({}) : []
-  axios.get.mockResolvedValue({ data });
+
+const GET_JOB_ACTION = () => {
+  const jobsStore = useJobsStore();
+  jobsStore.jobs = Array(15).fill({})
 }
 
 describe('JobListings', () => {
   it("fetch jobs from api", () => {
-    getRequest(false);
     const $route = createRoute();
     renderComponent($route);
-    expect(axios.get).toHaveBeenCalledWith("http://testapi.com/jobs")
+    const jobsStore = useJobsStore();
+    expect(jobsStore.FETCH_JOBS).toHaveBeenCalled()
   })
 
   it("creates max 10 jobs", async () => {
-    getRequest()
     const $route = createRoute({ page: "1" });
     renderComponent($route);
+
+    GET_JOB_ACTION()
 
     // async => find, sync => get
     const jobListings = await screen.findAllByRole("listitem")
@@ -65,42 +70,41 @@ describe('JobListings', () => {
   })
 
   describe("when user in page 1", () => {
-    it("does not show previous button", async () => {
-      getRequest()
+    it("does not show previous link", async () => {
       const $route = createRoute({ page: "1" });
 
       renderComponent($route);
+      GET_JOB_ACTION()
       await screen.findAllByRole("listitem")
       const previousButton = screen.queryByRole("link", { name: /previous/i })
       expect(previousButton).not.toBeInTheDocument()
     })
 
-    it("shows next button", async () => {
-      getRequest()
+    it("shows next link", async () => {
       const $route = createRoute({ page: "1" });
 
       renderComponent($route);
+      GET_JOB_ACTION()
       await screen.findAllByRole("listitem")
       const nextButton = screen.queryByRole("link", { name: /next/i })
-      screen.debug()
       expect(nextButton).toBeInTheDocument()
     })
   })
 
   describe("when user is on the last page",() => {
     it("does not show next link", async () => {
-      getRequest()
       const $route = createRoute({ page: "2" });
       renderComponent($route);
+      GET_JOB_ACTION()
       await screen.findAllByRole("listitem")
       const nextLink = screen.queryByRole("link", { name: /next/i })
       expect(nextLink).not.toBeInTheDocument()
     })
 
     it("shows previous link", async () => {
-      getRequest()
       const $route = createRoute({ page: "2" });
       renderComponent($route);
+      GET_JOB_ACTION()
       await screen.findAllByRole("listitem")
       const previousLink = screen.queryByRole("link", { name: /previous/i })
       expect(previousLink).toBeInTheDocument()
