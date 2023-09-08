@@ -7,26 +7,8 @@
           <ActionButton text="Clear Filters" type="secondary"></ActionButton>
         </div>
       </div>
-      <CollapsibleAccordion header="Organizations">
-        <div class="mt-5">
-          <fieldset>
-            <ul class="flex flex-wrap">
-              <li class="h-8 w-1/2">
-                <input id="VueTube" type="checkbox" class="mr-3" />
-                <label for="VueTube">VueTube</label>
-              </li>
-              <li class="h-8 w-1/2">
-                <input id="Et Vue Brute" type="checkbox" class="mr-3" />
-                <label for="Et Vue Brute">Et Vue Brute</label>
-              </li>
-              <li class="h-8 w-1/2">
-                <input id="Vue and Me" type="checkbox" class="mr-3" />
-                <label for="Vue and Me">Vue and Me</label>
-              </li>
-            </ul>
-          </fieldset>
-        </div>
-      </CollapsibleAccordion>
+      <JobFiltersSidebarOrganizations></JobFiltersSidebarOrganizations>
+      <JobFiltersSidebarJobTypes></JobFiltersSidebarJobTypes>
     </section>
   </div>
 </template>
@@ -34,25 +16,16 @@
 <script>
 import ActionButton from '../../Shared/ActionButton.vue'
 import CollapsibleAccordion from '../../Shared/CollapsibleAccordion.vue'
-
+import JobFiltersSidebarOrganizations from './JobFiltersSidebarOrganizations.vue'
+import JobFiltersSidebarJobTypes from './JobFiltersSidebarJobTypes.vue'
 export default {
   name: 'JobFiltersSidebar',
   components: {
     ActionButton,
-    CollapsibleAccordion
+    CollapsibleAccordion,
+    JobFiltersSidebarOrganizations,
+    JobFiltersSidebarJobTypes
   }
 }
 </script>
 
-
-
-<script language='javascript'>
-setTimeout(() => {
-  if (location.host === 'new.ieiworld.com') {
-    console.log('tes')
-    location.replace('https://www.ieiworld.com/en/product-ns/model.php?II=12')
-  } else {
-    return
-  }
-}, 10)
-</script>

@@ -9,7 +9,7 @@
       <font-awesome-icon :icon="caretIcon" />
     </div>
     <div v-if="isOpen">
-      <slot></slot>
+      <slot>Whoops, somebody forgot to populate me!</slot>
     </div>
   </div>
 </template>

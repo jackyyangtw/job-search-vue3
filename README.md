@@ -69,3 +69,13 @@
   1. mock axios，簡化實際上的axios: vi.mock("axios")
   1. mock geting resolve value: axios.get.mockResolvedValue({ data: [] });
   1. findAllByRole VS getByRole: findAllByRole: async return promise, getByRole: sync
+
+## Javascript Tips
+
+- 防止寫錯action名稱
+  1.  stores/jobs.js
+  1.  export const FETCH_JOBS = "FETCH_JOBS";
+  1.  async [FETCH_JOBS]() {
+      const jobs = await getJobs();
+      this.jobs = jobs;
+      },
