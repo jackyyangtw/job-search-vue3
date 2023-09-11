@@ -4,7 +4,7 @@
       <div v-if="onJobResultsPage">
         <font-awesome-icon :icon="['fas', 'search']" class="mr-3" />
         <span>
-          <span class="text-brand-green-1"> {{ FILTERED_JOBS_BY_ORGANIZATION.length }} </span>
+          <span class="text-brand-green-1"> {{ totalJobs }} </span>
           jobs matched
         </span>
       </div>
@@ -12,29 +12,17 @@
   </div>
 </template>
 
-<script>
-import { mapState } from 'pinia'
-import { useJobsStore, FILTERED_JOBS_BY_ORGANIZATION } from '@/stores/jobs'
-export default {
-  name: 'TheSubnav',
-  components: {},
-  props: {},
-  data() {
-    return {
-      // onJobResultsPage: true
-    }
-  },
-  computed: {
-    ...mapState(useJobsStore, [FILTERED_JOBS_BY_ORGANIZATION]),
-    onJobResultsPage() {
-      return this.$route.name === 'JobResults'
-    }
-  },
-  watch: {},
-  created() {},
-  mounted() {},
-  methods: {}
-}
+<script setup>
+import { storeToRefs } from 'pinia'
+import { useJobsStore } from '@/stores/jobs'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const jobsStore = useJobsStore()
+const { FILTERED_JOBS } = storeToRefs(jobsStore)
+const totalJobs = computed(() => FILTERED_JOBS.value.length)
+const onJobResultsPage = computed(() => route.name === 'JobResults')
 </script>
 
 <style lang="scss" scoped>

@@ -28,43 +28,33 @@
   </main>
 </template>
 
-<script>
-import JobListing from './JobListing.vue'
-import { useJobsStore, FETCH_JOBS, FILTERED_JOBS } from '@/stores/jobs'
-import { mapActions, mapState } from 'pinia'
+<script setup>
+import JobListing from '@/components/JobResults/JobListing.vue'
+import { useJobsStore } from '@/stores/jobs'
+import { usePrevAndNextPage } from '@/composables/usePrevAndNextPage'
+import { computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { storeToRefs } from 'pinia'
 
-export default {
-  name: 'JobListings',
-  components: {
-    JobListing
-  },
-  computed: {
-    ...mapState(useJobsStore, [FILTERED_JOBS]),
-    currentPage() {
-      return parseInt(this.$route.query.page || '1')
-    },
-    prevPage() {
-      const prevPage = this.currentPage - 1
-      return prevPage >= 1 ? prevPage : undefined
-    },
-    nextPage() {
-      const nextPage = this.currentPage + 1
-      const totalPage = Math.ceil(this.FILTERED_JOBS.length / 10)
-      return nextPage <= totalPage ? nextPage : undefined
-    },
-    displayedJobs() {
-      const page = this.currentPage
-      const firstIndex = (page - 1) * 10
-      const lastIndex = page * 10
-      return this.FILTERED_JOBS.slice(firstIndex, lastIndex)
-    }
-  },
-  methods: {
-    ...mapActions(useJobsStore, [FETCH_JOBS])
-  },
-  async created() {
-    this.FETCH_JOBS()
-  }
-}
+const route = useRoute()
+const jobsStore = useJobsStore()
+const { FILTERED_JOBS } = storeToRefs(jobsStore)
+
+const currentPage = computed(() => parseInt(route.query.page || '1'))
+const maxPage = computed(() => Math.ceil(FILTERED_JOBS.value.length / 10))
+const { prevPage, nextPage } = usePrevAndNextPage(currentPage, maxPage)
+
+const displayedJobs = computed(() => {
+  const page = currentPage.value
+  const firstIndex = (page - 1) * 10
+  const lastIndex = page * 10
+  return FILTERED_JOBS.value.slice(firstIndex, lastIndex)
+})
+
+const { FETCH_JOBS } = jobsStore
+
+onMounted(() => {
+  FETCH_JOBS()
+})
 </script>
 

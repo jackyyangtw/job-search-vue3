@@ -7,25 +7,32 @@
           <ActionButton text="Clear Filters" type="secondary"></ActionButton>
         </div>
       </div>
-      <JobFiltersSidebarOrganizations></JobFiltersSidebarOrganizations>
-      <JobFiltersSidebarJobTypes></JobFiltersSidebarJobTypes>
+
+      <JobFiltersSidebarCheckboxGroup
+        header="Job Types"
+        :unique-values="UNIQUE_JOB_TYPES"
+        :action="ADD_SELECTED_JOB_TYPE"
+      />
+      <JobFiltersSidebarCheckboxGroup
+        header="Organizations"
+        :unique-values="UNIQUE_ORGANIZATIONS"
+        :action="ADD_SELECTED_ORGANIZATION"
+      />
     </section>
   </div>
 </template>
 
-<script>
+<script setup>
 import ActionButton from '../../Shared/ActionButton.vue'
-import CollapsibleAccordion from '../../Shared/CollapsibleAccordion.vue'
-import JobFiltersSidebarOrganizations from './JobFiltersSidebarOrganizations.vue'
-import JobFiltersSidebarJobTypes from './JobFiltersSidebarJobTypes.vue'
-export default {
-  name: 'JobFiltersSidebar',
-  components: {
-    ActionButton,
-    CollapsibleAccordion,
-    JobFiltersSidebarOrganizations,
-    JobFiltersSidebarJobTypes
-  }
-}
+import JobFiltersSidebarCheckboxGroup from './JobFiltersSidebarCheckboxGroup.vue'
+import { useJobsStore } from '../../../stores/jobs'
+import { useUserStore } from '../../../stores/user'
+import { storeToRefs } from 'pinia'
+
+const jobsStore = useJobsStore()
+const { UNIQUE_ORGANIZATIONS, UNIQUE_JOB_TYPES } = storeToRefs(jobsStore)
+
+const userStore = useUserStore()
+const { ADD_SELECTED_ORGANIZATION, ADD_SELECTED_JOB_TYPE } = userStore
 </script>
 

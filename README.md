@@ -70,6 +70,11 @@
   1. mock geting resolve value: axios.get.mockResolvedValue({ data: [] });
   1. findAllByRole VS getByRole: findAllByRole: async return promise, getByRole: sync
 
+### Composition API
+
+- mock composition api router
+  1. component: JobSearchForm.test.js
+
 ## Javascript Tips
 
 - 防止寫錯action名稱

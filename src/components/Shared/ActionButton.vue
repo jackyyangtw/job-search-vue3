@@ -4,27 +4,24 @@
   </button>
 </template>
 
-<script>
-export default {
-  name: 'ActionButton',
-  props: {
-    text: {
-      type: String,
-      default: 'Sign in'
-    },
-    type: {
-      type: String,
-      default: 'primary'
-    }
+<script setup>
+import { computed } from 'vue'
+
+const props = defineProps({
+  text: {
+    type: String,
+    default: 'Sign in'
   },
-  computed: {
-    btnClasses() {
-      return {
-        [this.type]: true
-      }
-    }
+  type: {
+    type: String,
+    default: 'primary'
   }
-}
+})
+const btnClasses = computed(() => {
+  return {
+    [props.type]: true
+  }
+})
 </script>
 
 <style scoped lang="postcss">

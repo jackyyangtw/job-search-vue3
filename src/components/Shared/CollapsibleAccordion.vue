@@ -14,30 +14,22 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'CollapsibleAccordion',
-  data() {
-    return {
-      isOpen: false
-    }
-  },
-  props: {
-    header: {
-      type: String,
-      required: true
-    }
-  },
-  computed: {
-    caretIcon() {
-      return this.isOpen ? ['fas', 'angle-up'] : ['fas', 'angle-down']
-    }
-  },
-  methods: {
-    toggleAccordion() {
-      this.isOpen = !this.isOpen
-    }
+<script setup>
+import { ref, computed } from 'vue'
+
+defineProps({
+  header: {
+    type: String,
+    required: true
   }
+})
+
+const isOpen = ref(false)
+const caretIcon = computed(() => {
+  return isOpen.value ? ['fas', 'angle-up'] : ['fas', 'angle-down']
+})
+const toggleAccordion = () => {
+  isOpen.value = !isOpen.value
 }
 </script>
 

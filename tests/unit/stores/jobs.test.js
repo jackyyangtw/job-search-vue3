@@ -45,43 +45,6 @@ describe("getters",() => {
     })
   })
 
-  describe("FILTERED_JOBS_BY_ORGANIZATION",() => {
-    it("identifies jobs by the given organizations",() => {
-      jobStores.jobs = [
-        { organization: "ORG1" },
-        { organization: "ORG2" },
-        { organization: "ORG3" },
-      ]
-      
-      const userStores = useUserStore()
-      userStores.selectedOrganizations = ["ORG1", "ORG2"]
-      const result = jobStores.FILTERED_JOBS_BY_ORGANIZATION
-      expect(result).toEqual([
-        { organization: "ORG1" },
-        { organization: "ORG2" },
-      ])
-    })
-    describe("when no organization is selected",() => {
-      it("returns all jobs",() => {
-        jobStores.jobs = [
-          { organization: "ORG1" },
-          { organization: "ORG2" },
-          { organization: "ORG3" },
-        ]
-        
-        const userStores = useUserStore()
-        userStores.selectedOrganizations = []
-        const result = jobStores.FILTERED_JOBS_BY_ORGANIZATION
-        expect(result).toEqual([
-          { organization: "ORG1" },
-          { organization: "ORG2" },
-          { organization: "ORG3" },
-        ])
-
-      })
-    })
-  })
-
   describe("UNIQUE_JOB_TYPES",() => {
     it("returns unique job types from the job list",() => {
       jobStores.jobs = [
@@ -93,39 +56,38 @@ describe("getters",() => {
     })
   })
 
-  describe("FILTERED_JOBS_BY_JOB_TYPES",() => {
-    it("identifies jobs by the given job types",() => {
-      jobStores.jobs = [
-        { jobType: "Full-time" },
-        { jobType: "Temporary" },
-        { jobType: "Part-time" },
-      ]
-      
-      const userStores = useUserStore()
-      userStores.selectedJobTypes = ["Full-time","Temporary"]
-      const result = jobStores.FILTERED_JOBS_BY_JOB_TYPES
-      expect(result).toEqual([
-        { jobType: "Full-time" },
-        { jobType: "Temporary" },
-      ])
-    })
-    describe("when no job type is selected",() => {
-      it("returns all jobs",() => {
-        jobStores.jobs = [
-          { jobType: "Full-time" },
-          { jobType: "Temporary" },
-          { jobType: "Part-time" },
-        ]
-        
+  describe("INCLUDE_JOB_BY_ORGANIZATION",() => {
+    describe("when no organization is selected",() => {
+      const testByOrganization = (selectedOrgs = []) => {
         const userStores = useUserStore()
-        userStores.selectedJobTypes = []
-        const result = jobStores.FILTERED_JOBS_BY_JOB_TYPES
-        expect(result).toEqual([
-          { jobType: "Full-time" },
-          { jobType: "Temporary" },
-          { jobType: "Part-time" },
-        ])
+        userStores.selectedOrganizations = selectedOrgs
+        const job = { organization: "ORG1" }
+        const result = jobStores.INCLUDE_JOB_BY_ORGANIZATION(job)
+        expect(result).toBe(true)
+      }
+      it("includes all jobs",() => {
+        testByOrganization()
+      })
+      it("identifies jobs by the given organizations",() => {
+        testByOrganization(["ORG1", "ORG2"])
+      })
+    })
+  })
 
+  describe("INCLUDE_JOB_BY_JOB_TYPE",() => {
+    describe("when no job type is selected",() => {
+      const testByJobType = (selectedJobTypes = []) => {
+        const userStores = useUserStore()
+        userStores.selectedJobTypes = selectedJobTypes
+        const job = { jobType: "Full-time" }
+        const result = jobStores.INCLUDE_JOB_BY_JOB_TYPE(job)
+        expect(result).toBe(true)
+      }
+      it("includes all jobs",() => {
+        testByJobType()
+      })
+      it("identifies jobs by the given job types",() => {
+        testByJobType(["Full-time", "Temporary"])
       })
     })
   })
