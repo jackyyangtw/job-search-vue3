@@ -1,19 +1,11 @@
 <template>
-  <div>single job</div>
+  <div>single job {{ currentJobId }}</div>
 </template>
 
-<script>
-export default {
-  name: 'JobView',
-  components: {},
-  props: {},
-  data() {
-    return {}
-  },
-  computed: {},
-  watch: {},
-  created() {},
-  mounted() {},
-  methods: {}
-}
+
+<script lang="ts" setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+const route = useRoute()
+const currentJobId = computed(() => route.params.id)
 </script>

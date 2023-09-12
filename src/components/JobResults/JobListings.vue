@@ -28,7 +28,7 @@
   </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import JobListing from '@/components/JobResults/JobListing.vue'
 import { useJobsStore } from '@/stores/jobs'
 import { usePrevAndNextPage } from '@/composables/usePrevAndNextPage'
@@ -40,7 +40,7 @@ const route = useRoute()
 const jobsStore = useJobsStore()
 const { FILTERED_JOBS } = storeToRefs(jobsStore)
 
-const currentPage = computed(() => parseInt(route.query.page || '1'))
+const currentPage = computed(() => parseInt((route.query.page as string) || '1'))
 const maxPage = computed(() => Math.ceil(FILTERED_JOBS.value.length / 10))
 const { prevPage, nextPage } = usePrevAndNextPage(currentPage, maxPage)
 

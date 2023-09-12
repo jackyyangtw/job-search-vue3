@@ -1,10 +1,16 @@
 import {render, screen} from '@testing-library/vue'
 import JobListing from '@/components/JobResults/JobListing.vue'
 import { RouterLinkStub } from '@vue/test-utils';
+import { createJob } from '../../../utils/createJob';
+import { Job } from '@/api/types';
 
 describe('JobListing', () => {
-  const renderComponent = (props) => render(JobListing, {
-    props,
+  const renderComponent = (job: Job) => render(JobListing, {
+    props: {
+      job: {
+        ...job
+      }
+    },
     global: {
       stubs: {
         RouterLink: RouterLinkStub
@@ -13,20 +19,18 @@ describe('JobListing', () => {
   });
 
   it("render job title",()=>{
-    renderComponent({
-      job: {
-        title: "Senior Software Engineer",
-      }
+    const props = createJob({
+      title: "Senior Software Engineer",
     })
+    renderComponent(props)
     expect(screen.getByText("Senior Software Engineer")).toBeInTheDocument();
   })
   
   it("render job organization",()=>{
-    renderComponent({
-      job: {
-        organization: "Google",
-      }
-    });
+    const props = createJob({
+      organization: "Google",
+    })
+    renderComponent(props);
     expect(screen.getByText("Google")).toBeInTheDocument();
   })
 });

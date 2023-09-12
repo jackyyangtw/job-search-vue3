@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useJobsStore } from '@/stores/jobs'
 import { computed } from 'vue'
@@ -24,6 +24,3 @@ const { FILTERED_JOBS } = storeToRefs(jobsStore)
 const totalJobs = computed(() => FILTERED_JOBS.value.length)
 const onJobResultsPage = computed(() => route.name === 'JobResults')
 </script>
-
-<style lang="scss" scoped>
-</style>

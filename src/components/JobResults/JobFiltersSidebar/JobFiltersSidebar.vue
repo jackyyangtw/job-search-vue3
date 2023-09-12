@@ -22,7 +22,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import ActionButton from '../../Shared/ActionButton.vue'
 import JobFiltersSidebarCheckboxGroup from './JobFiltersSidebarCheckboxGroup.vue'
 import { useJobsStore } from '../../../stores/jobs'

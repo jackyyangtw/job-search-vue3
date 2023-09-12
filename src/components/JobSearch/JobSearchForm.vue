@@ -20,7 +20,7 @@
   </form>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ActionButton from '../Shared/ActionButton.vue'

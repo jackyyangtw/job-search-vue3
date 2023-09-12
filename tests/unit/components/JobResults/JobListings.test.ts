@@ -1,3 +1,4 @@
+import type { Mock } from 'vitest'
 import { render, screen } from '@testing-library/vue'
 import { RouterLinkStub } from '@vue/test-utils'
 import JobListings from '@/components/JobResults/JobListings.vue'
@@ -6,10 +7,11 @@ import { useJobsStore } from '@/stores/jobs'
 import { useRoute } from 'vue-router'
 
 vi.mock('vue-router')
+const useRouteMock = useRoute as Mock
 
-let jobsStore;
+let jobsStore: ReturnType<typeof useJobsStore>;
 const renderComponent = (query = {}) => {
-  useRoute.mockReturnValue({ query })
+  useRouteMock.mockReturnValue({ query })
   const pinia = createTestingPinia();
   jobsStore = useJobsStore();
   render(JobListings, {
@@ -24,6 +26,7 @@ const renderComponent = (query = {}) => {
 
 // Mocking the pinia getter
 const MOCK_JOBS_GETTER = () => {
+  // @ts-expect-error
   jobsStore.FILTERED_JOBS = Array(15).fill({})
 }
 

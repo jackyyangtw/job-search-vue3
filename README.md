@@ -75,6 +75,8 @@
 - mock composition api router
   1. component: JobSearchForm.test.js
 
+### Typescript and Testing
+
 ## Javascript Tips
 
 - 防止寫錯action名稱
@@ -84,3 +86,33 @@
       const jobs = await getJobs();
       this.jobs = jobs;
       },
+
+## Typescript
+
+### Generics
+
+- example:
+
+```
+const copyArray = <T>(array: T[]): T[] => [...array]
+copyArray<number>([3,5])
+copyArray<boolean>([true,false])
+
+```
+
+- example: nextElementList.ts
+
+### Partial
+
+- Partial 的功能是將傳入的物件的所有屬性變成 optional
+- 用於測試很方便，因為不用寫很多屬性
+- ex: jobs.test.ts
+
+### as
+
+- axios
+
+1. getJobs.ts
+1. mock axios.get: const axiosGetMock = axios.get as Mock
+
+## Typescript and Vue

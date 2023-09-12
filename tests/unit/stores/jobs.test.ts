@@ -1,11 +1,14 @@
 import { createPinia,setActivePinia } from 'pinia'
 import { useJobsStore } from '@/stores/jobs'
 import { useUserStore } from '@/stores/user'
+import type { Mock } from 'vitest'
+import type { Job } from '@/api/types'
 import axios from "axios";
 
 vi.mock("axios")
+const axiosGetMock = axios.get as Mock
 
-let jobStores;
+let jobStores: ReturnType<typeof useJobsStore>
 beforeEach(() => {
   const pinia = createPinia()
   setActivePinia(pinia)
@@ -21,7 +24,7 @@ describe("state",() => {
 describe("actions",() => {
   describe("FETCH_JOBS",() => {
     it("make API request and stores received jobs",async () => {
-      axios.get.mockResolvedValue({
+      axiosGetMock.mockResolvedValue({
         data: [
           "JOB1", "JOB2"
         ],
@@ -40,7 +43,7 @@ describe("getters",() => {
         { organization: "ORG1" },
         { organization: "ORG2" },
         { organization: "ORG1" },
-      ]
+      ] as Job[]
       expect(jobStores.UNIQUE_ORGANIZATIONS).toEqual(new Set(["ORG1", "ORG2"]))
     })
   })
@@ -51,17 +54,17 @@ describe("getters",() => {
         { jobType: "Full-time" },
         { jobType: "Temporary" },
         { jobType: "Full-time" },
-      ]
+      ] as Job[]
       expect(jobStores.UNIQUE_JOB_TYPES).toEqual(new Set(["Full-time", "Temporary"]))
     })
   })
 
   describe("INCLUDE_JOB_BY_ORGANIZATION",() => {
     describe("when no organization is selected",() => {
-      const testByOrganization = (selectedOrgs = []) => {
+      const testByOrganization = (selectedOrgs: string[] = []) => {
         const userStores = useUserStore()
         userStores.selectedOrganizations = selectedOrgs
-        const job = { organization: "ORG1" }
+        const job = { organization: "ORG1" } as Job
         const result = jobStores.INCLUDE_JOB_BY_ORGANIZATION(job)
         expect(result).toBe(true)
       }
@@ -76,10 +79,10 @@ describe("getters",() => {
 
   describe("INCLUDE_JOB_BY_JOB_TYPE",() => {
     describe("when no job type is selected",() => {
-      const testByJobType = (selectedJobTypes = []) => {
+      const testByJobType = (selectedJobTypes: string[] = []) => {
         const userStores = useUserStore()
         userStores.selectedJobTypes = selectedJobTypes
-        const job = { jobType: "Full-time" }
+        const job = { jobType: "Full-time" } as Job
         const result = jobStores.INCLUDE_JOB_BY_JOB_TYPE(job)
         expect(result).toBe(true)
       }
