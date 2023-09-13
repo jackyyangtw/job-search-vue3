@@ -8,14 +8,24 @@
         <h2 class="mb-2 text-2xl">{{ job.title }}</h2>
         <div class="flex flex-row align-middle">
           <div class="mr-5">
+            <FontAwesomeIcon icon="building" class="mr-3"/>
             <span>{{ job.organization }}</span>
           </div>
-          <div>
-            <ul>
-              <li class="mr-5 inline-block" v-for="location in job.locations" :key="location">
-                {{ location }}
-              </li>
-            </ul>
+          <ul>
+            <FontAwesomeIcon icon="location-dot" class="mr-3" />
+            <li class="mr-5 inline-block" v-for="(location,index) in job.locations" :key="location">
+                <span>
+                  {{ location }}, 
+                </span>
+            </li>
+          </ul>
+          <div class="mr-5">
+            <FontAwesomeIcon class="mr-3" icon="fa-chart-simple" />
+            <span> {{ job.degree }}</span>
+          </div>
+          <div class="mr-5">
+            <FontAwesomeIcon class="mr-3" icon="fa-clock" />
+            <span> {{ job.jobType }}</span>
           </div>
         </div>
       </div>
@@ -41,6 +51,7 @@
 <script setup lang="ts">
 import { computed, type PropType } from 'vue'
 import type { Job } from '@/api/types'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 const props = defineProps({
   job: {
     type: Object as PropType<Job>,

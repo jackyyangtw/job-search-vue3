@@ -5,20 +5,24 @@ import JobListings from '@/components/JobResults/JobListings.vue'
 import { createTestingPinia } from '@pinia/testing'
 import { useJobsStore } from '@/stores/jobs'
 import { useRoute } from 'vue-router'
+import { useDegreesStore } from '@/stores/degrees'
 
 vi.mock('vue-router')
 const useRouteMock = useRoute as Mock
 
 let jobsStore: ReturnType<typeof useJobsStore>;
+let degreesStore: ReturnType<typeof useDegreesStore>;
 const renderComponent = (query = {}) => {
   useRouteMock.mockReturnValue({ query })
   const pinia = createTestingPinia();
   jobsStore = useJobsStore();
+  degreesStore = useDegreesStore();
   render(JobListings, {
     global: {
       plugins: [pinia],
       stubs: {
-        RouterLink: RouterLinkStub
+        RouterLink: RouterLinkStub,
+        FontAwesomeIcon: true,
       },
     }
   })
@@ -34,6 +38,10 @@ describe('JobListings', () => {
   it("fetch jobs from api", () => {
     renderComponent();
     expect(jobsStore.FETCH_JOBS).toHaveBeenCalled()
+  })
+  it("fetch degrees from api", () => {
+    renderComponent();
+    expect(degreesStore.FETCH_DEGREES).toHaveBeenCalled()
   })
 
   it("creates max 10 jobs", async () => {

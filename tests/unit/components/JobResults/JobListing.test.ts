@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/vue'
 import JobListing from '@/components/JobResults/JobListing.vue'
 import { RouterLinkStub } from '@vue/test-utils';
 import { createJob } from '../../../utils/createJob';
-import { Job } from '@/api/types';
+import type { Job } from '@/api/types';
 
 describe('JobListing', () => {
   const renderComponent = (job: Job) => render(JobListing, {

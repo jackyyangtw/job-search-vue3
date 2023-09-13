@@ -1,11 +1,11 @@
 <template>
   <main class="flex-auto bg-brand-gray-2 p-8">
     <ol>
-      <job-listing v-for="job in displayedJobs" :key="job" :job="job" />
+      <job-listing v-for="jobItem in displayedJobs" :key="jobItem.id" :job="jobItem" />
     </ol>
     <div class="mx-auto mt-8">
       <div class="flex">
-        <p class="text-sm flex-grow">Page {{ currentPage }}</p>
+        <p class="text-sm flex-grow">Page {{ currentPage }} <span> / {{ maxPage }}</span></p>
         <div class="flex items-center justify-center">
           <router-link
             v-if="prevPage"
@@ -29,15 +29,19 @@
 </template>
 
 <script setup lang="ts">
-import JobListing from '@/components/JobResults/JobListing.vue'
-import { useJobsStore } from '@/stores/jobs'
-import { usePrevAndNextPage } from '@/composables/usePrevAndNextPage'
 import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
+import { useJobsStore } from '@/stores/jobs'
+import { useDegreesStore } from '@/stores/degrees'
+import { usePrevAndNextPage } from '@/composables/usePrevAndNextPage'
+import JobListing from '@/components/JobResults/JobListing.vue'
+import type { Job } from '@/api/types'
 
 const route = useRoute()
+
 const jobsStore = useJobsStore()
+const { FETCH_JOBS } = jobsStore
 const { FILTERED_JOBS } = storeToRefs(jobsStore)
 
 const currentPage = computed(() => parseInt((route.query.page as string) || '1'))
@@ -48,13 +52,14 @@ const displayedJobs = computed(() => {
   const page = currentPage.value
   const firstIndex = (page - 1) * 10
   const lastIndex = page * 10
-  return FILTERED_JOBS.value.slice(firstIndex, lastIndex)
+  return FILTERED_JOBS.value.slice(firstIndex, lastIndex) as Job[]
 })
 
-const { FETCH_JOBS } = jobsStore
+const { FETCH_DEGREES } = useDegreesStore()
 
 onMounted(() => {
   FETCH_JOBS()
+  FETCH_DEGREES()
 })
 </script>
 

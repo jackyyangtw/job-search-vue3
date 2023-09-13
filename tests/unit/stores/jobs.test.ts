@@ -78,19 +78,65 @@ describe("getters",() => {
   })
 
   describe("INCLUDE_JOB_BY_JOB_TYPE",() => {
+    const testByJobType = (selectedJobTypes: string[] = []) => {
+      const userStores = useUserStore()
+      userStores.selectedJobTypes = selectedJobTypes
+      const job = { jobType: "Full-time" } as Job
+      const result = jobStores.INCLUDE_JOB_BY_JOB_TYPE(job)
+      expect(result).toBe(true)
+    }
     describe("when no job type is selected",() => {
-      const testByJobType = (selectedJobTypes: string[] = []) => {
-        const userStores = useUserStore()
-        userStores.selectedJobTypes = selectedJobTypes
-        const job = { jobType: "Full-time" } as Job
-        const result = jobStores.INCLUDE_JOB_BY_JOB_TYPE(job)
-        expect(result).toBe(true)
-      }
       it("includes all jobs",() => {
         testByJobType()
       })
-      it("identifies jobs by the given job types",() => {
-        testByJobType(["Full-time", "Temporary"])
+    })
+    it("identifies jobs by the given job types",() => {
+      testByJobType(["Full-time", "Temporary"])
+    })
+  })
+
+  describe("INCLUDE_JOB_BY_DEGREE",() => {
+    const testByDegree = (selectedDegrees: string[] = []) => {
+      const userStores = useUserStore()
+      userStores.selectedDegrees = selectedDegrees
+      const job = { degree: "Bachelor" } as Job
+      const result = jobStores.INCLUDE_JOB_BY_DEGREE(job)
+      expect(result).toBe(true)
+    }
+    describe("when no degree is selected",() => {
+      it("includes all jobs",() => {
+        testByDegree()
+      })
+    })
+    it("identifies jobs by the given degrees",() => {
+      testByDegree(["Bachelor"])
+    })
+  })
+
+  describe("INCLUDE_JOB_BY_SKILL",() => {
+    it("includes jobs that match the given skill search terms",() => {
+      const userStores = useUserStore()
+      userStores.skillSearchTerm = "Vue"
+      const job = { title: "Vue developer" } as Job
+      const result = jobStores.INCLUDE_JOB_BY_SKILL(job)
+      expect(result).toBe(true)
+    })
+
+    it("handles inconsistent casing",() => {
+      const userStores = useUserStore()
+      userStores.skillSearchTerm = "react"
+      const job = { title: "React developer" } as Job
+      const result = jobStores.INCLUDE_JOB_BY_SKILL(job)
+      expect(result).toBe(true)
+    })
+
+    describe("when no skill search term is given",() => {
+      it("includes all jobs",() => {
+        const userStores = useUserStore()
+        userStores.skillSearchTerm = ""
+        const job = { title: "React developer" } as Job
+        const result = jobStores.INCLUDE_JOB_BY_SKILL(job)
+        expect(result).toBe(true)
       })
     })
   })
