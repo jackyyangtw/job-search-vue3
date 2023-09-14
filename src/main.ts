@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import {createPinia} from "pinia"
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome"
 import {library} from "@fortawesome/fontawesome-svg-core"
-import {faSearch, faAngleDown, faAngleUp, faBuilding, faLocationDot, faLayerGroup, faChartSimple, faClock} from "@fortawesome/free-solid-svg-icons"
+import {faSearch, faAngleDown, faAngleUp, faBuilding, faLocationDot, faLayerGroup, faChartSimple, faClock, faArrowLeft} from "@fortawesome/free-solid-svg-icons"
 import App from './App.vue'
 import router from './router'
 import "./main.css"
@@ -15,6 +15,7 @@ library.add(faLocationDot)
 library.add(faLayerGroup)
 library.add(faChartSimple)
 library.add(faClock)
+library.add(faArrowLeft)
 
 const app = createApp(App)
 const pinia = createPinia()

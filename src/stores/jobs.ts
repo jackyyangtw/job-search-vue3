@@ -12,7 +12,8 @@ export const INCLUDE_JOB_BY_ORGANIZATION = "INCLUDE_JOB_BY_ORGANIZATION";
 export const INCLUDE_JOB_BY_JOB_TYPE = "INCLUDE_JOB_BY_JOB_TYPE";
 export const INCLUDE_JOB_BY_DEGREE = "INCLUDE_JOB_BY_DEGREE";
 export const INCLUDE_JOB_BY_SKILL = "INCLUDE_JOB_BY_SKILL";
-
+export const FILTERED_JOBS_BY_ORGANIZATION = "FILTERED_JOBS_BY_ORGANIZATION";
+export const ALL_JOBS = "ALL_JOBS";
 export interface JobsState {
   jobs: Job[];
 }
@@ -29,6 +30,9 @@ export const useJobsStore = defineStore("jobs", {
     },
   },
   getters: {
+    [ALL_JOBS](state) {
+      return state.jobs;
+    },
     [UNIQUE_ORGANIZATIONS](state) {
       const uniqueOraganizations = new Set<string>();
       state.jobs.forEach((job) => {
@@ -49,6 +53,10 @@ export const useJobsStore = defineStore("jobs", {
         .filter((job) => this.INCLUDE_JOB_BY_JOB_TYPE(job))
         .filter((job) => this.INCLUDE_JOB_BY_DEGREE(job))
         .filter((job) => this.INCLUDE_JOB_BY_SKILL(job));
+    },
+    [FILTERED_JOBS_BY_ORGANIZATION](state): Job[] {
+      return state.jobs
+        .filter((job) => this.INCLUDE_JOB_BY_ORGANIZATION(job))
     },
     [INCLUDE_JOB_BY_ORGANIZATION]: () => (job: Job) => {
       const userStore = useUserStore();

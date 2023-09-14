@@ -1,33 +1,32 @@
 <template>
-  <div class="flex flex-col border-r border-solid border-brand-gray-1 bg-white p-4 w-96">
-    <section class="pb-5">
-      <JobFiltersSidebarPrompt />
+  <SidebarLayout>
 
-      <JobFiltersSidebarSkill />
+    <JobFiltersSidebarPrompt />
 
-      <CollapsibleAccordion header="Organizations">
-        <JobFiltersSidebarCheckboxGroup
-          :unique-values="UNIQUE_ORGANIZATIONS"
-          :action="ADD_SELECTED_ORGANIZATION"
-        />
-      </CollapsibleAccordion>
-      
-      <CollapsibleAccordion header="Degrees">
-        <JobFiltersSidebarCheckboxGroup
-          :unique-values="UNIQUE_DEGREES"
-          :action="ADD_SELECTED_DEGREE"
-        />
-      </CollapsibleAccordion>
+    <JobFiltersSidebarSkill />
 
-      <CollapsibleAccordion header="Job Types">
-        <JobFiltersSidebarCheckboxGroup
-          :unique-values="UNIQUE_JOB_TYPES"
-          :action="ADD_SELECTED_JOB_TYPE"
-        />
-      </CollapsibleAccordion>
+    <CollapsibleAccordion header="Organizations">
+      <JobFiltersSidebarCheckboxGroup
+        :unique-values="UNIQUE_ORGANIZATIONS"
+        :action="ADD_SELECTED_ORGANIZATION"
+      />
+    </CollapsibleAccordion>
+    
+    <CollapsibleAccordion header="Degrees">
+      <JobFiltersSidebarCheckboxGroup
+        :unique-values="UNIQUE_DEGREES"
+        :action="ADD_SELECTED_DEGREE"
+      />
+    </CollapsibleAccordion>
 
-    </section>
-  </div>
+    <CollapsibleAccordion header="Job Types">
+      <JobFiltersSidebarCheckboxGroup
+        :unique-values="UNIQUE_JOB_TYPES"
+        :action="ADD_SELECTED_JOB_TYPE"
+      />
+    </CollapsibleAccordion>
+    
+  </SidebarLayout>
 </template>
 
 <script setup lang="ts">
@@ -35,6 +34,7 @@ import CollapsibleAccordion from '@/components/Shared/CollapsibleAccordion.vue'
 import JobFiltersSidebarPrompt from './JobFiltersSidebarPrompt.vue'
 import JobFiltersSidebarCheckboxGroup from './JobFiltersSidebarCheckboxGroup.vue'
 import JobFiltersSidebarSkill from './JobFiltersSidebarSkill.vue'
+import SidebarLayout from '@/components/layouts/SidebarLayout.vue'
 import { useJobsStore } from '@/stores/jobs'
 import { useUserStore } from '@/stores/user'
 import { useDegreesStore } from '@/stores/degrees'
