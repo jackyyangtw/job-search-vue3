@@ -1,31 +1,36 @@
 <template>
-  <main class="flex-auto bg-brand-gray-2 p-8">
-    <ol>
+  <JobResultLayout>
+
+    <template #content>
       <job-listing v-for="jobItem in displayedJobs" :key="jobItem.id" :job="jobItem" />
-    </ol>
-    <div class="mx-auto mt-8">
-      <div class="flex">
-        <p class="text-sm flex-grow">Page {{ currentPage }} <span> / {{ maxPage }}</span></p>
-        <div class="flex items-center justify-center">
-          <router-link
-            v-if="prevPage"
-            role="link"
-            :to="{ name: 'JobResults', query: { page: prevPage } }"
-            class="mx-3 text-sm font-semibold text-brand-blue-1"
-            >Previous</router-link
-          >
-          <!-- 加上 role 是為了讓測試成功，沒有加的話測試會失敗 -->
-          <router-link
-            v-if="nextPage"
-            role="link"
-            :to="{ name: 'JobResults', query: { page: nextPage } }"
-            class="mx-3 text-sm font-semibold text-brand-blue-1"
-            >Next</router-link
-          >
+    </template>
+
+    <template #bottom>
+      <div class="mx-auto mt-8">
+        <div class="flex">
+          <p class="text-sm flex-grow">Page {{ currentPage }} <span> / {{ maxPage }}</span></p>
+          <div class="flex items-center justify-center">
+            <router-link
+              v-if="prevPage"
+              role="link"
+              :to="{ name: 'JobResults', query: { page: prevPage } }"
+              class="mx-3 text-sm font-semibold text-brand-blue-1"
+              >Previous</router-link
+            >
+            <!-- 加上 role 是為了讓測試成功，沒有加的話測試會失敗 -->
+            <router-link
+              v-if="nextPage"
+              role="link"
+              :to="{ name: 'JobResults', query: { page: nextPage } }"
+              class="mx-3 text-sm font-semibold text-brand-blue-1"
+              >Next</router-link
+            >
+          </div>
         </div>
       </div>
-    </div>
-  </main>
+    </template>
+    
+  </JobResultLayout>
 </template>
 
 <script setup lang="ts">
@@ -36,6 +41,7 @@ import { useJobsStore } from '@/stores/jobs'
 import { useDegreesStore } from '@/stores/degrees'
 import { usePrevAndNextPage } from '@/composables/usePrevAndNextPage'
 import JobListing from '@/components/JobResults/JobListing.vue'
+import JobResultLayout from '../layouts/JobResultLayout.vue'
 import type { Job } from '@/api/types'
 
 const route = useRoute()

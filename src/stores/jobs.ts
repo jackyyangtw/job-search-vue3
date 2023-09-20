@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import { useUserStore } from "./user";
 import type { Job } from "@/api/types";
 import getJobs from "../api/getJobs";
-
 // dynamic action & getters name
 export const FETCH_JOBS = "FETCH_JOBS";
 export const UNIQUE_ORGANIZATIONS = "UNIQUE_ORGANIZATIONS";

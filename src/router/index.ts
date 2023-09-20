@@ -1,29 +1,29 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
-import JobResultsView from "@/views/JobResultsView.vue";
-import JobView from "@/views/JobView.vue";
-import TeamsView from "@/views/TeamsView.vue";
+// import HomeView from "@/views/HomeView.vue";
+// import JobResultsView from "@/views/JobResultsView.vue";
+// import JobView from "@/views/JobView.vue";
+// import TeamsView from "@/views/TeamsView.vue";
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    component: HomeView,
+    component: () => import("@/views/HomeView.vue"),
   },
   {
     path: "/jobs/results",
     name: "JobResults",
-    component: JobResultsView,
+    component: () => import("@/views/JobResultsView.vue"),
   },
   {
     path: "/jobs/results/:id",
     name: "JobListing",
-    component: JobView,
+    component: () => import("@/views/JobView.vue"),
   },
   {
     path: "/teams",
     name: "Teams",
-    component: TeamsView,
+    component: () => import("@/views/TeamsView.vue"),
   },
 ];
 
