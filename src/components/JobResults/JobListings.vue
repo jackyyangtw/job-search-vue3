@@ -1,7 +1,7 @@
 <template>
   <JobResultLayout>
-
     <template #content>
+
       <job-listing v-for="jobItem in displayedJobs" :key="jobItem.id" :job="jobItem" />
     </template>
 

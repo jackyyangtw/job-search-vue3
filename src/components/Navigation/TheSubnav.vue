@@ -8,6 +8,9 @@
           jobs matched
         </span>
       </div>
+      <div v-else-if="onHomePage">
+        Wellcome!
+      </div>
     </div>
   </div>
 </template>
@@ -23,4 +26,5 @@ const jobsStore = useJobsStore()
 const { FILTERED_JOBS } = storeToRefs(jobsStore)
 const totalJobs = computed(() => FILTERED_JOBS.value.length)
 const onJobResultsPage = computed(() => route.name === 'JobResults')
+const onHomePage = computed(() => route.name === 'Home')
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row flex-no-wrap w-full">
-    <JobRelatedSidebar :jobs="relatedJobs" />
-    <JobResult :job="thisjob"/>
+    <JobRelatedSidebar v-if="thisjob" :jobs="relatedJobs" :job="thisjob"/>
+    <JobResult v-if="thisjob" :job="thisjob"/>
   </div>
 </template>
 
@@ -22,6 +22,7 @@ const relatedJobs = ref<Job[]>([]);
 const thisjob = ref<Job | undefined>(undefined);
 
 const route = useRoute();
+
 watchEffect(async() => {
   let jobID = +route.params.id;
   if(ALL_JOBS.value.length  === 0) {
@@ -32,4 +33,5 @@ watchEffect(async() => {
   relatedJobs.value = ALL_JOBS.value.filter((job: Job) => job.organization === thisjob?.value?.organization);
 
 })
+
 </script>
