@@ -1,9 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-// export const ADD_SELECTED_ORGANIZATION = 'ADD_SELECTED_ORGANIZATION'
-// export const ADD_SELECTED_JOB_TYPE = 'ADD_SELECTED_JOB_TYPE'
-// export const ADD_SELECTED_DEGREE = 'ADD_SELECTED_DEGREE'
-// export const CLEAR_USER_JOB_FILTER_SELECTIONS = 'CLEAR_USER_JOB_FILTER_SELECTIONS'
+
 
 export const useUserStore = defineStore('user', () => {
   const isLoggedIn = ref(false)
@@ -12,6 +9,7 @@ export const useUserStore = defineStore('user', () => {
   const selectedDegrees = ref<string[]>([])
   const skillSearchTerm = ref<string>("")
   const locationSearchTerm = ref<string>("")
+  const routeQuerySearchTerm = ref<string>("")
   const login = () => {
     isLoggedIn.value = true
   }
@@ -37,6 +35,9 @@ export const useUserStore = defineStore('user', () => {
   const UPDATE_LOCATION_SEARCH_TERM = (term: string) => {
     locationSearchTerm.value = term
   }
+  const UPDATE_ROUTE_QUERY_SEARCH_TERM = (term: string) => {
+    routeQuerySearchTerm.value = term
+  }
   return {
     isLoggedIn,
     selectedOrganizations,
@@ -44,13 +45,15 @@ export const useUserStore = defineStore('user', () => {
     selectedDegrees,
     skillSearchTerm,
     locationSearchTerm,
+    routeQuerySearchTerm,
     login,
     ADD_SELECTED_ORGANIZATION,
     ADD_SELECTED_JOB_TYPE,
     ADD_SELECTED_DEGREE,
     CLEAR_USER_JOB_FILTER_SELECTIONS,
     UPDATE_SKILL_SEARCH_TERM,
-    UPDATE_LOCATION_SEARCH_TERM
+    UPDATE_LOCATION_SEARCH_TERM,
+    UPDATE_ROUTE_QUERY_SEARCH_TERM
   }
 })
 

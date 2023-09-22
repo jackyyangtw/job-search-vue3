@@ -11,8 +11,9 @@ export const INCLUDE_JOB_BY_ORGANIZATION = "INCLUDE_JOB_BY_ORGANIZATION";
 export const INCLUDE_JOB_BY_JOB_TYPE = "INCLUDE_JOB_BY_JOB_TYPE";
 export const INCLUDE_JOB_BY_DEGREE = "INCLUDE_JOB_BY_DEGREE";
 export const INCLUDE_JOB_BY_SKILL = "INCLUDE_JOB_BY_SKILL";
-export const FILTERED_JOBS_BY_ORGANIZATION = "FILTERED_JOBS_BY_ORGANIZATION";
 export const INCLUDE_JOB_BY_LOCATION = "INCLUDE_JOB_BY_LOCATION";
+export const INCLUDE_JOB_BY_ROUTE_QUERYS = "INCLUDE_JOB_BY_ROUTE_QUERYS";
+export const FILTERED_JOBS_BY_ORGANIZATION = "FILTERED_JOBS_BY_ORGANIZATION";
 export const ALL_JOBS = "ALL_JOBS";
 export interface JobsState {
   jobs: Job[];
@@ -82,15 +83,23 @@ export const useJobsStore = defineStore("jobs", {
     },
     [INCLUDE_JOB_BY_SKILL]: () => (job: Job) => {
       const userStore = useUserStore();
-      return job.title.toLowerCase().includes(userStore.skillSearchTerm.toLowerCase())
+      const skillSearchTerm = userStore.skillSearchTerm.split(" ");
+      return skillSearchTerm.some((skill) => {
+        return job.title.toLowerCase().includes(skill.toLowerCase())
+      })
     },
     [INCLUDE_JOB_BY_LOCATION]: () => (job: Job) => {
       const userStore = useUserStore();
       const result = job.locations.some((location) => {
         return location.toLowerCase().includes(userStore.locationSearchTerm.toLowerCase())
       })
-      // console.log(userStore.locationSearchTerm.toLowerCase())
-      // console.log(result)
+      return result
+    },
+    [INCLUDE_JOB_BY_ROUTE_QUERYS]: () => (job: Job) => {
+      const userStore = useUserStore();
+      const result = job.querys.some((query: string) => {
+        return query.toLowerCase().includes(userStore.routeQuerySearchTerm.toLowerCase())
+      })
       return result
     },
   }

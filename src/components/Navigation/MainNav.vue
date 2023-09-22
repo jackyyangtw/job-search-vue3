@@ -33,10 +33,10 @@ import { useUserStore } from '@/stores/user'
 
 const menuItems = ref([
   { text: 'Teams', url: '/teams' },
-  { text: 'Locations', url: '/' },
-  { text: 'Life at Bobo Corp', url: '/' },
-  { text: 'How we hire', url: '/' },
-  { text: 'Students', url: '/' },
+  // { text: 'Locations', url: '/' },
+  // { text: 'Life at Bobo Corp', url: '/' },
+  // { text: 'How we hire', url: '/' },
+  // { text: 'Students', url: '/' },
   { text: 'Jobs', url: '/jobs/results' }
 ])
 
@@ -45,8 +45,8 @@ const { login } = userStore
 const isLoggedIn = computed(() => userStore.isLoggedIn)
 const headerHeight = computed(() => {
   return {
-    'h-16': !isLoggedIn,
-    'h-32': isLoggedIn
+    'h-16': !isLoggedIn.value,
+    'h-32': isLoggedIn.value
   }
 })
 </script>

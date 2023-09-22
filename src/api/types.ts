@@ -16,3 +16,11 @@ export interface Degree {
   id: number;
   degree: string;
 }
+
+export interface Team {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+  querys: string[];
+}

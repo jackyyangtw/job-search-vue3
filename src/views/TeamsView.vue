@@ -9,9 +9,22 @@
       </h2>
     </template>
   </HeaderContainer>
+  <div class="flex max-w-screen-xl mx-auto my-5">
+    <ul class="flex flex-wrap">
+      <TeamCard v-for="team in teams" :team="team"/>
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
 import HeaderContainer from '../components/Shared/HeaderContainer.vue'
+import TeamCard from '@/components/Team/TeamCard.vue';
+import getTeams from '@/api/getTeams';
+import { ref, onMounted } from 'vue'
+import type { Team } from '@/api/types';
+const teams = ref<Team[]>([])
+onMounted(async () => {
+  teams.value = await getTeams()
+})
 </script>
 

@@ -1,8 +1,8 @@
 <template>
   <JobResultLayout>
-    <template #content>
 
-      <job-listing v-for="jobItem in displayedJobs" :key="jobItem.id" :job="jobItem" />
+    <template #content>
+      <job-listing v-for="jobItem in displayedJobs" :key="jobItem.id" :job="jobItem" element="router-link" />
     </template>
 
     <template #bottom>
@@ -62,6 +62,7 @@ const displayedJobs = computed(() => {
 })
 
 const { FETCH_DEGREES } = useDegreesStore()
+
 
 onMounted(() => {
   FETCH_JOBS()

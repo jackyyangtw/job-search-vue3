@@ -2533,5 +2533,42 @@
       "id": 5,
       "degree": "Pursuing Degree"
     }
+  ],
+  "teams": [
+    {
+      "name": "UI / UX",
+      "description": "The UI / UX team is responsible for the user interface and user experience of our products. They work closely with the engineering team to ensure that our products are easy to use and look great.",
+      "image": "https://images.unsplash.com/photo-1511376777868-611b54f68947",
+      "id": 1,
+      "querys": ["ui", "ux", "ui/ux", "ui-ux"]
+    },
+    {
+      "name": "Frontend Engineering",
+      "description": "The frontend team is responsible for building the frontend of our products. They work closely with the UI / UX team to ensure that our products are easy to use and look great.",
+      "image": "https://images.unsplash.com/photo-1556075798-4825dfaaf498",
+      "id": 2,
+      "querys": ["frontend", "vue", "react", "angular"]
+    },
+    {
+      "name": "Backend Engineering",
+      "description": "The backend team is responsible for building the backend of our products. They work closely with the frontend team to ensure that our products are fast and reliable.",
+      "image": "https://images.unsplash.com/photo-1556075798-4825dfaaf498",
+      "id": 3,
+      "querys": ["backend", "node", "python", "java", "ruby","php"]
+    },
+    {
+      "name": "Fullstack Engineering",
+      "description": "The fullstack team is responsible for building the frontend and backend of our products. They work closely with the UI / UX team to ensure that our products are easy to use and look great.",
+      "image": "https://images.unsplash.com/photo-1556075798-4825dfaaf498",
+      "id": 4,
+      "querys": ["full stack"]
+    },
+    {
+      "name": "Software Enginnering",
+      "description": "The software team is responsible for building the software of our products. They work closely with the UI / UX team to ensure that our products are easy to use and look great.",
+      "image": "https://images.unsplash.com/photo-1556075798-4825dfaaf498",
+      "id": 5,
+      "querys": ["software","swift", "kotlin", "java"]
+    }
   ]
 }
