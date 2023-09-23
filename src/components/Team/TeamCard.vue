@@ -18,7 +18,6 @@ const props = defineProps({
   },
 })
 const teamJobsLink = computed(() => {
-  // props.teams.querys array to string
   const querys = props.team.querys.join(' ')
   return {
     name: 'JobResults',

@@ -1,10 +1,12 @@
 <template>
   <ul>
+
     <li v-for="spotlight in SpotLights" :key="spotlight.id">
       <slot
         :img="spotlight.img"
         :title="spotlight.title"
         :description="spotlight.description"
+        :querys="spotlight.querys"
       ></slot>
     </li>
   </ul>
@@ -19,6 +21,7 @@ interface SpotLight {
   img: string
   title: string
   description: string
+  querys: string[]
 }
 
 const SpotLights = ref<SpotLight[]>([])

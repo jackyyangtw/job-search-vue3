@@ -34,8 +34,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed, onMounted, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
 import { useJobsStore } from '@/stores/jobs'
 import { useDegreesStore } from '@/stores/degrees'
@@ -45,12 +46,14 @@ import JobResultLayout from '../layouts/JobResultLayout.vue'
 import type { Job } from '@/api/types'
 
 const route = useRoute()
+const router = useRouter()
 
 const jobsStore = useJobsStore()
 const { FETCH_JOBS } = jobsStore
 const { FILTERED_JOBS } = storeToRefs(jobsStore)
 
 const currentPage = computed(() => parseInt((route.query.page as string) || '1'))
+
 const maxPage = computed(() => Math.ceil(FILTERED_JOBS.value.length / 10))
 const { prevPage, nextPage } = usePrevAndNextPage(currentPage, maxPage)
 
@@ -59,6 +62,14 @@ const displayedJobs = computed(() => {
   const firstIndex = (page - 1) * 10
   const lastIndex = page * 10
   return FILTERED_JOBS.value.slice(firstIndex, lastIndex) as Job[]
+})
+
+const userStore = useUserStore()
+const { skillSearchTerm } = storeToRefs(userStore)
+watch(skillSearchTerm, (newVal) => {
+  if(newVal) {
+    router.push({ name: 'JobResults', query: { page: 1 } })
+  }
 })
 
 const { FETCH_DEGREES } = useDegreesStore()

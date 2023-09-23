@@ -2501,15 +2501,31 @@
   "spotlights": [
     {
       "id": 1,
-      "img": "https://images.unsplash.com/photo-1556075798-4825dfaaf498",
-      "title": "Cloud Engineering",
-      "description": "Build fun stuff in the cloud. It's a lot of fun, we promise!"
+      "img": "https://res.cloudinary.com/practicaldev/image/fetch/s--7QWqH9YU--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/pp4ll13f5onw4gqj8ggl.jpg",
+      "title": "Frontend Engineering",
+      "description": "The frontend team is responsible for building the frontend of our products. They work closely with the UI / UX team to ensure that our products are easy to use and look great.",
+      "querys": ["frontend", "vue", "react", "angular", "javascript"]
     },
     {
       "id": 2,
-      "img": "https://images.unsplash.com/photo-1511376777868-611b54f68947",
-      "title": "Executive Leadership",
-      "description": "Be a leader for everyone. Leadership builds character."
+      "img": "https://5115875.fs1.hubspotusercontent-na1.net/hub/5115875/hubfs/Backend-y-Frontend-%C2%BFQu%C3%A9-es-c%C3%B3mo-funcionan-en-la-programaci%C3%B3n.jpg?width=950&name=Backend-y-Frontend-%C2%BFQu%C3%A9-es-c%C3%B3mo-funcionan-en-la-programaci%C3%B3n.jpg",
+      "title": "Backend Engineering",
+      "description": "The backend team is responsible for building the backend of our products. They work closely with the frontend team to ensure that our products are fast and reliable.",
+      "querys": ["backend", "node", "python", "java", "ruby","php", "go"]
+    },
+    {
+      "id": 3,
+      "img": "https://dreamwalk.com.au/wp-content/uploads/2022/02/app-ui-design-with-rounded-corners.jpeg",
+      "title": "UI / UX",
+      "description": "The UI / UX team is responsible for the user interface and user experience of our products. They work closely with the engineering team to ensure that our products are easy to use and look great.",
+      "querys": ["ui", "ux", "ui/ux", "ui-ux"]
+    },
+    {
+      "id": 4,
+      "img": "https://www.classicinformatics.com/hubfs/full-stack%20developer.png",
+      "title": "Fullstack Engineering",
+      "description": "The fullstack team is responsible for building the frontend and backend of our products. They work closely with the UI / UX team to ensure that our products are easy to use and look great.",
+      "querys": ["full stack"]
     }
   ],
   "degrees": [
@@ -2538,37 +2554,51 @@
     {
       "name": "UI / UX",
       "description": "The UI / UX team is responsible for the user interface and user experience of our products. They work closely with the engineering team to ensure that our products are easy to use and look great.",
-      "image": "https://images.unsplash.com/photo-1511376777868-611b54f68947",
+      "image": "https://dreamwalk.com.au/wp-content/uploads/2022/02/app-ui-design-with-rounded-corners.jpeg",
       "id": 1,
       "querys": ["ui", "ux", "ui/ux", "ui-ux"]
     },
     {
       "name": "Frontend Engineering",
       "description": "The frontend team is responsible for building the frontend of our products. They work closely with the UI / UX team to ensure that our products are easy to use and look great.",
-      "image": "https://images.unsplash.com/photo-1556075798-4825dfaaf498",
+      "image": "https://res.cloudinary.com/practicaldev/image/fetch/s--7QWqH9YU--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/pp4ll13f5onw4gqj8ggl.jpg",
       "id": 2,
-      "querys": ["frontend", "vue", "react", "angular"]
+      "querys": ["frontend", "vue", "react", "angular", "javascript"]
     },
     {
       "name": "Backend Engineering",
       "description": "The backend team is responsible for building the backend of our products. They work closely with the frontend team to ensure that our products are fast and reliable.",
-      "image": "https://images.unsplash.com/photo-1556075798-4825dfaaf498",
+      "image": "https://5115875.fs1.hubspotusercontent-na1.net/hub/5115875/hubfs/Backend-y-Frontend-%C2%BFQu%C3%A9-es-c%C3%B3mo-funcionan-en-la-programaci%C3%B3n.jpg?width=950&name=Backend-y-Frontend-%C2%BFQu%C3%A9-es-c%C3%B3mo-funcionan-en-la-programaci%C3%B3n.jpg",
       "id": 3,
-      "querys": ["backend", "node", "python", "java", "ruby","php"]
+      "querys": ["backend", "node", "python", "java", "ruby", "php", "go"]
     },
     {
       "name": "Fullstack Engineering",
       "description": "The fullstack team is responsible for building the frontend and backend of our products. They work closely with the UI / UX team to ensure that our products are easy to use and look great.",
-      "image": "https://images.unsplash.com/photo-1556075798-4825dfaaf498",
+      "image": "https://www.classicinformatics.com/hubfs/full-stack%20developer.png",
       "id": 4,
       "querys": ["full stack"]
     },
     {
       "name": "Software Enginnering",
       "description": "The software team is responsible for building the software of our products. They work closely with the UI / UX team to ensure that our products are easy to use and look great.",
-      "image": "https://images.unsplash.com/photo-1556075798-4825dfaaf498",
+      "image": "https://www.shakebugs.com/wp-content/uploads/2022/04/what_does_a_software_engineering_manager_do_featured.png",
       "id": 5,
-      "querys": ["software","swift", "kotlin", "java"]
+      "querys": ["software"]
+    },
+    {
+      "name": "ios Engineering",
+      "description": "The ios team is responsible for building the ios of our products. They work closely with the UI / UX team to ensure that our products are easy to use and look great.",
+      "image": "https://www.apple.com/ac/structured-data/images/open_graph_logo.png",
+      "id": 6,
+      "querys": ["ios", "swift", "kotlin"]
+    },
+    {
+      "name": "Android Engineering",
+      "description": "The android team is responsible for building the android of our products. They work closely with the UI / UX team to ensure that our products are easy to use and look great.",
+      "image": "https://www.android.com/static/images/fav/favicon-96x96.png",
+      "id": 7,
+      "querys": ["android", "java", "kotlin"]
     }
   ]
 }

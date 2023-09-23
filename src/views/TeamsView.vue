@@ -11,7 +11,7 @@
   </HeaderContainer>
   <div class="flex max-w-screen-xl mx-auto my-5">
     <ul class="flex flex-wrap">
-      <TeamCard v-for="team in teams" :team="team"/>
+      <TeamCard v-for="team in teams" :key="team.id" :team="team"/>
     </ul>
   </div>
 </template>
