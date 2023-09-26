@@ -5,3 +5,12 @@
     </section>
   </div>
 </template>
+
+
+<script setup lang="ts">
+import { ref } from 'vue'
+const SidebarLayoutRef = ref<HTMLElement | null>(null)
+defineExpose({
+  SidebarLayoutRef
+})
+</script>

@@ -5,7 +5,7 @@
 
     <JobResultLayout>
       <template #content>
-        <JobListing v-if="thisjob" :job="thisjob" element="div">
+        <JobListing v-if="thisjob" :job="thisjob" :key="thisjob.id" element="div">
           <template #others>
             <div class="px-8 py-4">
               <h3 class="mt-1 mb-2">Descriptions:</h3>
@@ -29,7 +29,6 @@
         </JobListing>
       </template>
     </JobResultLayout>
-    
   </div>
 </template>
 
@@ -43,6 +42,7 @@ import JobResultLayout from '@/components/layouts/JobResultLayout.vue'
 import { useJobsStore } from '@/stores/jobs'
 import { storeToRefs } from 'pinia';
 import type { Job } from '@/api/types';
+
 
 const jobsStore = useJobsStore();
 const {ALL_JOBS} = storeToRefs(jobsStore);

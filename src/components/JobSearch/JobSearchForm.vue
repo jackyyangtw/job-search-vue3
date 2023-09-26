@@ -30,6 +30,7 @@ const router = useRouter()
 const role = ref('')
 const location = ref('')
 const searchForJobs = () => {
+  if(!role.value && !location.value) return;
   router.push({
     name: 'JobResults',
     query: {

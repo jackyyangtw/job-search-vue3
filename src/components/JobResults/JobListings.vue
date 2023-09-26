@@ -1,12 +1,13 @@
 <template>
-  <JobResultLayout>
+  <JobResultLayout class="relative">
 
     <template #content>
-      <job-listing v-for="jobItem in displayedJobs" :key="jobItem.id" :job="jobItem" element="router-link" />
+      <LoadingSpinner class="absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]" v-show="isLoadingJobs"/>
+      <job-listing v-show="!isLoadingJobs" v-for="jobItem in displayedJobs" :key="jobItem.id" :job="jobItem" element="router-link" />
     </template>
 
     <template #bottom>
-      <div class="mx-auto mt-8">
+      <div class="mx-auto mt-8" v-if="!isLoadingJobs">
         <div class="flex">
           <p class="text-sm flex-grow">Page {{ currentPage }} <span> / {{ maxPage }}</span></p>
           <div class="flex items-center justify-center">
@@ -34,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, watch } from 'vue'
+import { computed, onMounted, watch, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
@@ -43,6 +44,7 @@ import { useDegreesStore } from '@/stores/degrees'
 import { usePrevAndNextPage } from '@/composables/usePrevAndNextPage'
 import JobListing from '@/components/JobResults/JobListing.vue'
 import JobResultLayout from '../layouts/JobResultLayout.vue'
+import LoadingSpinner from '../Shared/LoadingSpinner.vue'
 import type { Job } from '@/api/types'
 
 const route = useRoute()
@@ -74,10 +76,19 @@ watch(skillSearchTerm, (newVal) => {
 
 const { FETCH_DEGREES } = useDegreesStore()
 
+const isLoadingJobs = ref(true);
 
-onMounted(() => {
-  FETCH_JOBS()
-  FETCH_DEGREES()
+onMounted(async() => {
+  try {
+    await FETCH_JOBS()
+    await FETCH_DEGREES()
+  } catch (error) {
+    console.log(error)
+  } finally {
+    setTimeout(() => {
+      isLoadingJobs.value = false
+    }, 500);
+  }
 })
 </script>
 

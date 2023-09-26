@@ -11,6 +11,9 @@
       <div v-else-if="onHomePage">
         Wellcome!
       </div>
+      <div v-else-if="onTeamsPage">
+        Interested ? Join our team!
+      </div>
     </div>
   </div>
 </template>
@@ -27,4 +30,5 @@ const { FILTERED_JOBS } = storeToRefs(jobsStore)
 const totalJobs = computed(() => FILTERED_JOBS.value.length)
 const onJobResultsPage = computed(() => route.name === 'JobResults')
 const onHomePage = computed(() => route.name === 'Home')
+const onTeamsPage = computed(() => route.name === 'Teams')
 </script>

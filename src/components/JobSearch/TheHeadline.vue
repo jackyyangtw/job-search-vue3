@@ -1,7 +1,8 @@
 <template>
   <section class="mb-16">
     <h1 class="mb-14 text-8xl font-bold tracking-tighter">
-      <span :class="headLineClass">{{ headLine }}</span> <br />
+      <span :class="headLineClass">{{ headLine }}</span> 
+      <br />
       for everyone
     </h1>
     <h2 class="text-3xl font-light">Find your next job at Bobo Corp.</h2>
@@ -45,5 +46,18 @@ onBeforeUnmount(() => {
 .code {
   color: #ea4335;
 }
+
+
+.toTop-enter-active,
+.toTop-leave-active {
+  transition: all 0.3s;
+}
+.toTop-enter-from,
+.toTop-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+
 </style>
 

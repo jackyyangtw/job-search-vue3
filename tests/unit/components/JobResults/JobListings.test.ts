@@ -7,6 +7,8 @@ import { useJobsStore } from '@/stores/jobs'
 import { useRoute } from 'vue-router'
 import { useDegreesStore } from '@/stores/degrees'
 
+
+
 vi.mock('vue-router')
 const useRouteMock = useRoute as Mock
 
@@ -39,7 +41,7 @@ describe('JobListings', () => {
     renderComponent();
     expect(jobsStore.FETCH_JOBS).toHaveBeenCalled()
   })
-  it("fetch degrees from api", () => {
+  it("fetch degrees from api", async () => {
     renderComponent();
     expect(degreesStore.FETCH_DEGREES).toHaveBeenCalled()
   })
