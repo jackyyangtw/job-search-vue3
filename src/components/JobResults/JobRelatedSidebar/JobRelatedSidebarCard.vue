@@ -4,6 +4,7 @@
   >
     <div ref="cardRef">
       <h2 class="text-2xl">{{ job.title }}</h2>
+      <h2 class="text-brand-blue-1 mt-2 text-lg">{{ job.organization }}</h2>
       <div class="mt-2">
         <span v-for="(location,index) in job.locations" :key="location">
           {{ location }}
@@ -16,11 +17,7 @@
 
 <script setup lang="ts">
 import type { Job } from '@/api/types'
-import { type PropType } from 'vue';
-import { useRoute } from 'vue-router'
-import { watchEffect, ref, toRef } from 'vue'
-import type { Ref } from 'vue'
-import { useElementBounding } from '@vueuse/core'
+import { ref, type Ref, type PropType } from 'vue';
 const props = defineProps({
   job: {
     type: Object as PropType<Job>,
@@ -32,23 +29,10 @@ const locationsCount = props.job.locations.length
 
 const linkParams = +props.job.id
 
-const route = useRoute();
-
 const emit = defineEmits<{
   (e:'update:job', value: Ref) : void
 }>();
 const cardRef = ref<HTMLDivElement | null>(null)
-const { top } = useElementBounding(cardRef)
-
-// watchEffect(() => {
-//   if(+route.params.id === props.job.id) {
-//     emit('update:job', toRef({
-//       ...props.job,
-//       top: top.value
-//     }));
-//   }
-// })
-
 
 </script>
 

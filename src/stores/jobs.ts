@@ -10,14 +10,21 @@ export interface JobsState {
 }
 export const useJobsStore = defineStore("jobs", () => {
   const jobs = ref<Job[]>([]);
-  const route = useRoute();
-  const router = useRouter();
   const userStore = useUserStore();
   const FETCH_JOBS = async () => {
     jobs.value = await getJobs();
   };
   const ALL_JOBS = computed(() => {
     return jobs.value;
+  });
+  const UNIQUE_LOCATIONS = computed(() => {
+    const uniqueLocations = new Set<string>();
+    jobs.value.forEach((job) => {
+      job.locations.forEach((location) => {
+        uniqueLocations.add(location);
+      });
+    });
+    return uniqueLocations;
   });
   const UNIQUE_ORGANIZATIONS = computed(() => {
     const uniqueOraganizations = new Set<string>();
@@ -90,11 +97,12 @@ export const useJobsStore = defineStore("jobs", () => {
     UNIQUE_JOB_TYPES,
     FILTERED_JOBS,
     FILTERED_JOBS_BY_ORGANIZATION,
+    UNIQUE_LOCATIONS,
     FETCH_JOBS,
     INCLUDE_JOB_BY_ORGANIZATION,
     INCLUDE_JOB_BY_JOB_TYPE,
     INCLUDE_JOB_BY_DEGREE,
     INCLUDE_JOB_BY_SKILL,
-    INCLUDE_JOB_BY_LOCATION
+    INCLUDE_JOB_BY_LOCATION,
   };
 });
