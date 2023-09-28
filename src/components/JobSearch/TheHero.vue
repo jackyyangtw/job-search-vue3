@@ -1,5 +1,5 @@
 <template>
-  <main class="flex h-screen flex-col">
+  <main class="flex min-h-screen flex-col">
     <section class="pt-10 pb-20">
       <div class="grid grid-cols-12">
         <div class="col-start-1 col-span-1"></div>
@@ -21,9 +21,9 @@
       <div class="grid grid-cols-12">
         <div class="col-start-1 col-span-1"></div>
         <div class="col-start-2 col-span-10">
-
           <h2 class="mb-5 tracking-widest">Spotlights</h2>
-          <SpotLight class="grid grid-cols-4 gap-8 pb-16">
+          <SpotLight class="grid grid-cols-4 gap-8 
+          pb-16">
             <template #default="{ img, title, description, querys }">
               <router-link
                 :to="{
@@ -35,7 +35,7 @@
                 class="flex flex-col rounded-lg border bg-white shadow-md"
               >
                 <figure class="h-48" :style="{background: `center/cover url(${img})`}"></figure>
-                <div class="mt-3 h-48 px-6 py-4">
+                <div class="mt-3 h-44 px-6 py-4">
                   <h3 class="text-lg font-medium">{{ title }}</h3>
                   <p class="mt-3 text-sm">{{ description }}</p>
                 </div>

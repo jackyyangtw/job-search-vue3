@@ -14,39 +14,85 @@
     >
     <div class="flex h-full flex-1 items-center pl-3 relative">
       <label for="location" class="absolute left-0 -top-10">Where?</label>
-      <TextInput id="location" placeholder="Los Angeles" v-model="location">
+      <TextInput id="location" placeholder="Los Angeles" autocomplete="off" v-model="location">
         <template #related>
-          <div class="bg-white w-full h-[300px] overflow-y-scroll absolute top-[-301px]" v-if="location && showRelatedLocation">
-            <ul>
-              <li @click="setLocation(LOCATION)" class="px-3 py-2" v-for="LOCATION in filered_UNIQUE_LOCATIONS" :key="LOCATION">{{ LOCATION }}</li>
-            </ul>
-          </div>
+          <transition name="fade">          
+            <div class="bg-white w-full max-h-[300px] absolute shadow-md"
+              :class="{'overflow-y-scroll': height >= 300}"
+              :style="relatedLocationRefPos"
+              ref="relatedLoactionRef"
+              v-if="location && showRelatedLocation"
+            >
+              <ul>
+                <li @click="setLocation(LOCATION)" class="px-3 py-2 cursor-pointer hover:bg-brand-gray-1/[0.3]" v-for="LOCATION in filered_UNIQUE_LOCATIONS" :key="LOCATION">{{ LOCATION }}</li>
+              </ul>
+            </div>
+          </transition>
         </template>
       </TextInput>
+      <!-- <LocationInput :location="location" :selectedLocation="selectedLocation"></LocationInput> -->
     </div>
     <ActionButton text="Search" type="secondary" class="rounded-r-3xl"></ActionButton>
   </form>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import ActionButton from '../Shared/ActionButton.vue'
-import TextInput from '../Shared/TextInput.vue'
+import LocationInput from '../Shared/LocationInput.vue'
+import { ref, onMounted, computed, watch } from 'vue'
+import { useElementSize } from '@vueuse/core'
 import { useJobsStore } from '@/stores/jobs'
 import { storeToRefs } from 'pinia'
+import TextInput from '../Shared/TextInput.vue'
 
+// fetch jobs and get unique locations
 const jobsStore = useJobsStore()
-const { jobs } = storeToRefs(jobsStore)
-const UNIQUE_LOCATIONS = ref<Set<string>>()
+const { jobs, UNIQUE_LOCATIONS } = storeToRefs(jobsStore)
+// const UNIQUE_LOCATIONS = ref<Set<string>>()
 onMounted(async () => {
-  if(jobs.value.length === 0) await jobsStore.FETCH_JOBS()
-  UNIQUE_LOCATIONS.value = jobsStore.UNIQUE_LOCATIONS
+  if(jobs.value.length === 0){
+    await jobsStore.FETCH_JOBS()
+    // UNIQUE_LOCATIONS.value = jobsStore.UNIQUE_LOCATIONS
+  } 
 })
 
+// filter unique locations
+const location = ref('')
+const filered_UNIQUE_LOCATIONS = computed(() => {
+  if(!location.value) return []
+  if(!UNIQUE_LOCATIONS.value) return []
+  return Array.from(UNIQUE_LOCATIONS.value).filter(LOCATION => LOCATION.toLowerCase().includes(location.value.toLowerCase()))
+})
+
+// show related location
+const showRelatedLocation = ref(false)
+const selectedLocation = ref('')
+const setLocation = (LOCATION: string) => {
+  location.value = LOCATION
+  selectedLocation.value = LOCATION
+  showRelatedLocation.value = false
+}
+watch(location, (newVal) => {
+  if(newVal === selectedLocation.value || filered_UNIQUE_LOCATIONS.value.length === 0) {
+    showRelatedLocation.value = false
+  } else {
+    showRelatedLocation.value = true
+  }
+})
+
+// related location style
+const relatedLoactionRef = ref<HTMLElement | null>(null)
+const { height } = useElementSize(relatedLoactionRef)
+const relatedLocationRefPos = computed(() => {
+  if(!relatedLoactionRef.value) return {}
+  return {
+    bottom: `-${height.value + 5}px`,
+  }
+})
+// search for jobs
 const router = useRouter()
 const role = ref('')
-const location = ref('')
 const searchForJobs = () => {
   if(!role.value && !location.value) return;
   router.push({
@@ -58,22 +104,16 @@ const searchForJobs = () => {
   })
 }
 
-const filered_UNIQUE_LOCATIONS = computed(() => {
-  if(!location.value) return []
-  if(!UNIQUE_LOCATIONS.value) return []
-  return Array.from(UNIQUE_LOCATIONS.value).filter(LOCATION => LOCATION.toLowerCase().includes(location.value.toLowerCase()))
-})
-
-const showRelatedLocation = ref(false)
-const setLocation = (LOCATION: string) => {
-  location.value = LOCATION
-  showRelatedLocation.value = false
-}
-watch(location, (newVal) => {
-  if(newVal.length > 0) {
-    showRelatedLocation.value = true
-  } else if(newVal.length === 0) {
-    showRelatedLocation.value = false
-  }
-})
 </script>
+
+<style scoped>
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+
+</style>

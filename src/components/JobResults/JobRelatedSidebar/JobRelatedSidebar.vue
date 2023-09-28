@@ -1,6 +1,5 @@
 <template>
-  <SidebarLayout class="h-screen overflow-y-scroll" ref="jobRelatedSideBarLayoutRef">
-    
+  <SidebarLayout class="overflow-y-scroll" ref="jobRelatedSideBarLayoutRef">
     <router-link :to="{ name:'JobResults' }">
       <font-awesome-icon :icon="['fas', 'arrow-left']" class="mr-5"/>
       <span class="mr-5">Back to jobs search</span>
@@ -15,6 +14,8 @@
 <script setup lang="ts">
 import SidebarLayout from '@/components/layouts/SidebarLayout.vue'
 import JobRelatedSidebarCard from './JobRelatedSidebarCard.vue';
+import { useUIStore } from '@/stores/ui';
+import { storeToRefs } from 'pinia';
 import type { Job } from '@/api/types';
 import { type PropType, toRefs, ref, watchEffect, computed } from 'vue';
 import { useRoute } from 'vue-router';
@@ -31,19 +32,18 @@ const props = defineProps({
 
 const {job} = toRefs(props);
 
-// https://vuejs.org/guide/typescript/composition-api.html#typing-component-template-refs
 const jobRelatedSideBarLayoutRef = ref<InstanceType<typeof SidebarLayout> | null>(null);
-
 const route = useRoute();
 const scrollId = computed(() => route.params.id)
-
+const uiStore = useUIStore();
+const { mainNavHeight } = storeToRefs(uiStore);
 watchEffect(() => {
   if(jobRelatedSideBarLayoutRef.value?.$el) {
     const target: HTMLElement | null = document.getElementById(scrollId.value as string);
     const parentTop = jobRelatedSideBarLayoutRef.value?.$el.offsetTop || 0;
     const top = target?.offsetTop || 0;
     jobRelatedSideBarLayoutRef.value?.$el.scroll({
-      top: top - parentTop - 20,
+      top: top - parentTop - 20 + mainNavHeight.value,
       left: 0,
       behavior: "smooth",
     })

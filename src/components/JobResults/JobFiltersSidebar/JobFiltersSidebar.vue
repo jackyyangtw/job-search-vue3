@@ -1,6 +1,8 @@
 <template>
   <SidebarLayout>
 
+
+
     <JobFiltersSidebarPrompt />
 
     <JobFiltersSidebarSkill />
@@ -48,7 +50,7 @@ import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const jobsStore = useJobsStore()
-const { UNIQUE_ORGANIZATIONS, UNIQUE_JOB_TYPES } = storeToRefs(jobsStore)
+const { UNIQUE_ORGANIZATIONS, UNIQUE_JOB_TYPES, FILTERED_JOBS } = storeToRefs(jobsStore)
 
 const degreesStore = useDegreesStore()
 const { UNIQUE_DEGREES } = storeToRefs(degreesStore)

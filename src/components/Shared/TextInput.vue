@@ -5,6 +5,7 @@
     :value="modelValue"
     :id="id"
     :placeholder="placeholder"
+    :autocomplete="autocomplete"
     @input="handleInput"
   />
   <slot name="related"></slot>
@@ -23,6 +24,10 @@ defineProps({
   placeholder: {
     type: String,
     default: ''
+  },
+  autocomplete: {
+    type: String,
+    default: 'on'
   }
 })
 const emit = defineEmits(['update:modelValue'])

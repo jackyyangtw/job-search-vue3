@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { useUserStore } from "./user";
-import { useRoute, useRouter } from "vue-router";
 import { computed, ref } from "vue";
 import type { Job } from "@/api/types";
 import getJobs from "../api/getJobs";

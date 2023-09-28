@@ -7,7 +7,7 @@
     </template>
 
     <template #bottom>
-      <div class="mx-auto mt-8" v-if="!isLoadingJobs">
+      <div class="mx-auto mt-8" v-if="!isLoadingJobs && FILTERED_JOBS.length > 0">
         <div class="flex">
           <p class="text-sm flex-grow">Page {{ currentPage }} <span> / {{ maxPage }}</span></p>
           <div class="flex items-center justify-center">
@@ -29,6 +29,7 @@
           </div>
         </div>
       </div>
+      <p v-else-if="!isLoadingJobs && FILTERED_JOBS.length === 0">No job found</p>
     </template>
     
   </JobResultLayout>

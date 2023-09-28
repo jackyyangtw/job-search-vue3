@@ -5,7 +5,7 @@
       <br />
       for everyone
     </h1>
-    <h2 class="text-3xl font-light">Find your next job at Bobo Corp.</h2>
+    <h2 class="text-3xl font-light">Find your next job at Vue Corp.</h2>
   </section>
 </template>
 
@@ -13,7 +13,7 @@
 import { nextElementList } from '@/utils/nextElementList'
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
 const headLine = ref('Build')
-const timer = ref<ReturnType<typeof setInterval>>(null)
+const timer = ref<ReturnType<typeof setInterval> | null>(null)
 const headLineClass = computed(() => {
   return {
     [headLine.value.toLowerCase()]: true
@@ -29,7 +29,9 @@ onMounted(() => {
   changeHeadline()
 })
 onBeforeUnmount(() => {
-  clearInterval(timer.value)
+  if(timer.value) {
+    clearInterval(timer.value)
+  }
 })
 </script>
 

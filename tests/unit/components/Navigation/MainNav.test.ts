@@ -27,7 +27,7 @@ describe("MainNav", () => {
 
   it("display company name", () => {
     renderComponent();
-    const companyName = screen.getByText("Bobo Career"); // synchronous code, get for one element
+    const companyName = screen.getByText("Vue Career"); // synchronous code, get for one element
     expect(companyName).toBeInTheDocument();
   });
 
@@ -36,7 +36,7 @@ describe("MainNav", () => {
     // 如果找不到元素，會出錯，test case 會失敗
     const menuItems = screen.getAllByRole("listitem"); // get all elements with role="listitem" > li
     const menuItemsTexts = menuItems.map((item) => item.textContent); // get text content of each element
-    expect(menuItemsTexts).toEqual(['Teams', 'Locations', 'Life at Bobo Corp', 'How we hire', 'Students','Jobs']); // compare the text content with expected value
+    expect(menuItemsTexts).toEqual(['Teams', 'Locations', 'Life at Vue Corp', 'How we hire', 'Students','Jobs']); // compare the text content with expected value
   });
 
   describe("when the user logs in", () => {
