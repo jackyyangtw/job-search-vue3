@@ -2,12 +2,12 @@
   <input
     type="text"
     class="w-full text-lg font-normal focus:outline-none"
+    :class="hasBoxShadow"
     :value="modelValue"
     :id="id"
     :placeholder="placeholder"
     :autocomplete="autocomplete"
     @input="handleInput"
-    :class="hasBoxShadow"
   />
   <slot name="related"></slot>
 </template>
@@ -18,6 +18,9 @@ const props = defineProps({
   modelValue: {
     type: String,
     default: ''
+  },
+  modelModifiers: {
+    default: () => ({})
   },
   id: {
     type: String,

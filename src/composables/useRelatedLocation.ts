@@ -48,7 +48,7 @@ export const useRelatedLocation = (el: Ref, location: Ref) => {
             elementHeight.value = height.value
         })
     })
-    // height.value = elHeight.value
+
     const relatedLocationRefPos = computed(() => {
         if (!relatedLoactionRef.value) return {}
         return {

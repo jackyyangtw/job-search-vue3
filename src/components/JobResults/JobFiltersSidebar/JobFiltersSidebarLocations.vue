@@ -4,9 +4,9 @@
       type="text" 
       class="h-12 w-full rounded border border-solid border-brand-gray-1 p-3 text-base shadow-gray"
       placeholder="San Francisco, London, Michigan" 
-      v-model.lazy.trim="locationSearchTerm"
+      v-model.lazy="locationSearchTerm"
     > -->
-    <LocationInput :location="locationSearchTerm" :relatedLocationRefPos="relatedLocationRefPos" :height="elementHeight" :showRelatedLocation="showRelatedLocation" :setLocation="setLocation" :filered_UNIQUE_LOCATIONS="filered_UNIQUE_LOCATIONS" v-model="locationSearchTerm" ref="locationInputRef" boxShadow></LocationInput>
+    <LocationInput :location="locationSearchTerm" :relatedLocationRefPos="relatedLocationRefPos" :height="elementHeight" :showRelatedLocation="showRelatedLocation" :setLocation="setLocation" :filered_UNIQUE_LOCATIONS="filered_UNIQUE_LOCATIONS" v-model.lazy="locationSearchTerm" ref="locationInputRef" boxShadow></LocationInput>
   </div>
 </template>
 

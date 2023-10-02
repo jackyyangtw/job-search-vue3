@@ -1,5 +1,5 @@
 <template>
-  <TextInput id="location" placeholder="Los Angeles" autocomplete="off" :model-value="props.location" @update:model-value="updateValue" class="bg-black" :boxShadow="boxShadow">
+  <TextInput id="location" placeholder="Los Angeles" autocomplete="off" :modelValue="props.location" @update:modelValue="updateValue" :boxShadow="boxShadow">
     <template #related>
       <transition name="fade">          
         <div class="bg-white w-full max-h-[300px] absolute shadow-md"
@@ -24,6 +24,9 @@ const props = defineProps({
   modelValue: {
     type: String,
     required: true
+  },
+  modelModifiers: {
+    default: () => ({})
   },
   location: {
     type: String,
