@@ -14,23 +14,7 @@
     >
     <div class="flex h-full flex-1 items-center pl-3 relative">
       <label for="location" class="absolute left-0 -top-10">Where?</label>
-      <TextInput id="location" placeholder="Los Angeles" autocomplete="off" v-model="location">
-        <template #related>
-          <transition name="fade">          
-            <div class="bg-white w-full max-h-[300px] absolute shadow-md"
-              :class="{'overflow-y-scroll': height >= 300}"
-              :style="relatedLocationRefPos"
-              ref="relatedLoactionRef"
-              v-if="location && showRelatedLocation"
-            >
-              <ul>
-                <li @click="setLocation(LOCATION)" class="px-3 py-2 cursor-pointer hover:bg-brand-gray-1/[0.3]" v-for="LOCATION in filered_UNIQUE_LOCATIONS" :key="LOCATION">{{ LOCATION }}</li>
-              </ul>
-            </div>
-          </transition>
-        </template>
-      </TextInput>
-      <!-- <LocationInput :location="location" :selectedLocation="selectedLocation"></LocationInput> -->
+      <LocationInput :location="location" :relatedLocationRefPos="relatedLocationRefPos" :height="elementHeight" :showRelatedLocation="showRelatedLocation" :setLocation="setLocation" :filered_UNIQUE_LOCATIONS="filered_UNIQUE_LOCATIONS" v-model="location" ref="locationInputRef"></LocationInput>
     </div>
     <ActionButton text="Search" type="secondary" class="rounded-r-3xl"></ActionButton>
   </form>
@@ -40,56 +24,15 @@
 import { useRouter } from 'vue-router'
 import ActionButton from '../Shared/ActionButton.vue'
 import LocationInput from '../Shared/LocationInput.vue'
-import { ref, onMounted, computed, watch } from 'vue'
-import { useElementSize } from '@vueuse/core'
-import { useJobsStore } from '@/stores/jobs'
-import { storeToRefs } from 'pinia'
+import { ref, type Ref } from 'vue'
 import TextInput from '../Shared/TextInput.vue'
+import { useRelatedLocation } from '@/composables/useRelatedLocation'
 
-// fetch jobs and get unique locations
-const jobsStore = useJobsStore()
-const { jobs, UNIQUE_LOCATIONS } = storeToRefs(jobsStore)
-// const UNIQUE_LOCATIONS = ref<Set<string>>()
-onMounted(async () => {
-  if(jobs.value.length === 0){
-    await jobsStore.FETCH_JOBS()
-    // UNIQUE_LOCATIONS.value = jobsStore.UNIQUE_LOCATIONS
-  } 
-})
-
-// filter unique locations
 const location = ref('')
-const filered_UNIQUE_LOCATIONS = computed(() => {
-  if(!location.value) return []
-  if(!UNIQUE_LOCATIONS.value) return []
-  return Array.from(UNIQUE_LOCATIONS.value).filter(LOCATION => LOCATION.toLowerCase().includes(location.value.toLowerCase()))
-})
+const locationInputRef = ref<HTMLElement|null>(null)
+const { relatedLocationRefPos, showRelatedLocation, setLocation, elementHeight, filered_UNIQUE_LOCATIONS } = useRelatedLocation(locationInputRef as Ref<HTMLElement>, location)
 
-// show related location
-const showRelatedLocation = ref(false)
-const selectedLocation = ref('')
-const setLocation = (LOCATION: string) => {
-  location.value = LOCATION
-  selectedLocation.value = LOCATION
-  showRelatedLocation.value = false
-}
-watch(location, (newVal) => {
-  if(newVal === selectedLocation.value || filered_UNIQUE_LOCATIONS.value.length === 0) {
-    showRelatedLocation.value = false
-  } else {
-    showRelatedLocation.value = true
-  }
-})
 
-// related location style
-const relatedLoactionRef = ref<HTMLElement | null>(null)
-const { height } = useElementSize(relatedLoactionRef)
-const relatedLocationRefPos = computed(() => {
-  if(!relatedLoactionRef.value) return {}
-  return {
-    bottom: `-${height.value + 5}px`,
-  }
-})
 // search for jobs
 const router = useRouter()
 const role = ref('')

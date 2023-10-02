@@ -7,12 +7,14 @@
     :placeholder="placeholder"
     :autocomplete="autocomplete"
     @input="handleInput"
+    :class="hasBoxShadow"
   />
   <slot name="related"></slot>
 </template>
 
 <script lang="ts" setup>
-defineProps({
+import { computed } from 'vue'
+const props = defineProps({
   modelValue: {
     type: String,
     default: ''
@@ -28,6 +30,10 @@ defineProps({
   autocomplete: {
     type: String,
     default: 'on'
+  },
+  boxShadow: {
+    type: Boolean,
+    default: false
   }
 })
 const emit = defineEmits(['update:modelValue'])
@@ -36,5 +42,8 @@ const handleInput = (event: Event) => {
   const target = event.target as HTMLInputElement
   emit('update:modelValue', target.value)
 }
+const hasBoxShadow = computed(() => {
+  return props.boxShadow ? 'rounded border border-solid border-brand-gray-1 p-3 text-base shadow-gray' : ''
+})
 </script>
 
