@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li v-for="spotlight in SpotLights" :key="spotlight.id">
+    <li v-for="spotlight in spotlights" :key="spotlight.id">
       <SpotlightSkelton v-if="isLoading"/>
       <slot
         v-if="!isLoading"
@@ -14,30 +14,31 @@
 </template>
 
 <script setup lang="ts">
-import axios, { Axios, type AxiosPromise } from 'axios'
 import { onMounted, ref } from 'vue'
 import SpotlightSkelton from './SpotlightSkelton.vue';
-interface SpotLight {
-  id: number
-  img: string
-  title: string
-  description: string
-  querys: string[]
-}
+import { useSpotlightStore } from '@/stores/spotlights'
+import { storeToRefs } from 'pinia';
 
 const isLoading = ref(true)
-const SpotLights = ref<SpotLight[]>([])
+const spotlightStore = useSpotlightStore()
+const { FETCH_SPOTLIGHTS } = spotlightStore
+const { spotlights } = storeToRefs(spotlightStore)
+
 onMounted(async () => {
-  const baseUrl = import.meta.env.VITE_APP_API_URL
   try {
-    const res = await axios.get(`${baseUrl}/spotlights`)
-    SpotLights.value = res.data
-    setTimeout(() => {
+    if(spotlights.value.length) {
       isLoading.value = false
-    }, 1000);
+    }
+    if(!spotlights.value.length) {
+      isLoading.value = true
+      await FETCH_SPOTLIGHTS()
+      setTimeout(() => {
+        isLoading.value = false
+      }, 1000);
+    } 
   } catch (error) {
     console.log(error)
-  } 
+  }
 })
 </script>
 

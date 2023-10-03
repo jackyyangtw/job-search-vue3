@@ -1,26 +1,34 @@
 export interface Job {
-[x: string]: any;
-  id: number;
-  title: string;
-  organization: string;
-  degree: string;
-  jobType: string;
-  locations: string[];
-  minimumQualifications: string[];
-  preferredQualifications: string[];
-  description: string[];
-  dateAdded: string;
+    [x: string]: any
+    id: number
+    title: string
+    organization: string
+    degree: string
+    jobType: string
+    locations: string[]
+    minimumQualifications: string[]
+    preferredQualifications: string[]
+    description: string[]
+    dateAdded: string
 }
 
 export interface Degree {
-  id: number;
-  degree: string;
+    id: number
+    degree: string
 }
 
 export interface Team {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-  querys: string[];
+    id: number
+    name: string
+    description: string
+    image: string
+    querys: string[]
+}
+
+export interface SpotLight {
+    id: number
+    img: string
+    title: string
+    description: string
+    querys: string[]
 }

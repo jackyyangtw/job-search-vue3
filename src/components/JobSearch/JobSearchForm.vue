@@ -1,22 +1,18 @@
 <template>
-  <form
-    class="flex h-12 w-full items-center rounded-3xl border border0solid border-brand-gray-3"
+  <form class="2xl:flex"
     @submit.prevent="searchForJobs"
   >
-    <font-awesome-icon :icon="['fas', 'search']" class="ml-4 mr-3"></font-awesome-icon>
-    <div class="relative flex h-full flex-1 items-center pr-3">
+    <div class="relative flex w-full h-full items-center pr-3 border border-solid border-brand-gray-3 p-3 rounded-full 2xl:mr-5">
+      <font-awesome-icon :icon="['fas', 'search']" class="ml-4 mr-3"></font-awesome-icon>
       <label for="role" class="absolute left-0 -top-10">Role</label>
       <TextInput id="role" placeholder="Software engineer" v-model="role"></TextInput>
     </div>
-    <span
-      class="flex h-full items-center border-1 border-r border-l border-brand-gray-3 bg-brand-gray-2 px-3"
-      >in</span
-    >
-    <div class="flex h-full flex-1 items-center pl-3 relative">
+    <div class="relative flex w-full h-full items-center pr-3 border border-solid border-brand-gray-3 p-3 rounded-full mt-14 2xl:mt-0 2xl:mr-5">
+      <font-awesome-icon :icon="['fas', 'location-dot']" class="ml-4 mr-3"/>
       <label for="location" class="absolute left-0 -top-10">Where?</label>
       <LocationInput :location="location" :relatedLocationRefPos="relatedLocationRefPos" :height="elementHeight" :showRelatedLocation="showRelatedLocation" :setLocation="setLocation" :filered_UNIQUE_LOCATIONS="filered_UNIQUE_LOCATIONS" v-model="location" ref="locationInputRef"></LocationInput>
     </div>
-    <ActionButton text="Search" type="secondary" class="rounded-r-3xl"></ActionButton>
+    <ActionButton text="Search" class="w-full bg-brand-blue-2 border border-solid border-brand-gray-3 rounded-full mt-10 2xl:mt-0 2xl:max-w-[150px]"></ActionButton>
   </form>
 </template>
 

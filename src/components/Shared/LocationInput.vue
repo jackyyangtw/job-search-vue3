@@ -1,5 +1,5 @@
 <template>
-  <TextInput id="location" placeholder="Los Angeles" autocomplete="off" :modelValue="props.location" @update:modelValue="updateValue" :boxShadow="boxShadow">
+  <TextInput id="location" autocomplete="off" :modelValue="props.location" :modelModifiers="modelModifiers" @update:modelValue="updateValue" :boxShadow="boxShadow" placeholder="San Francisco, London, Michigan">
     <template #related>
       <transition name="fade">          
         <div class="bg-white w-full max-h-[300px] absolute shadow-md"
@@ -20,12 +20,14 @@
 <script setup lang="ts">
 import TextInput from './TextInput.vue';
 import { ref } from 'vue';
+import { useDebounceFn } from '@vueuse/core'
 const props = defineProps({
   modelValue: {
     type: String,
     required: true
   },
   modelModifiers: {
+    type: Object as () => { lazy?: boolean },
     default: () => ({})
   },
   location: {
@@ -58,8 +60,17 @@ const props = defineProps({
   }
 })
 const emit = defineEmits(['update:modelValue'])
-const updateValue = (value: string) => {
+
+const debounceEmit = useDebounceFn((value: string) => {
   emit('update:modelValue', value)
+}, 500)
+
+const updateValue = (value: string) => {
+  if(props.modelModifiers.lazy) {
+    debounceEmit(value)
+  } else {
+    emit('update:modelValue', value)
+  }
 }
 const relatedLoactionRef = ref(null)
 

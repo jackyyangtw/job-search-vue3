@@ -1,6 +1,6 @@
 <template>
   <section class="mb-16">
-    <h1 class="mb-14 text-8xl font-bold tracking-tighter">
+    <h1 class="mb-14 text-7xl md:text-8xl font-bold tracking-tighter">
       <span :class="headLineClass">{{ headLine }}</span> 
       <br />
       for everyone
@@ -19,11 +19,12 @@ const headLineClass = computed(() => {
     [headLine.value.toLowerCase()]: true
   }
 })
+const timeout = 1000
 const changeHeadline = () => {
   const actions = ['Build', 'Create', 'Design', 'Code']
   timer.value = setInterval(() => {
     headLine.value = nextElementList(actions, headLine.value)
-  }, 1000)
+  }, timeout)
 }
 onMounted(() => {
   changeHeadline()
@@ -36,6 +37,7 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+
 .build {
   color: #1a73e8;
 }
@@ -49,17 +51,14 @@ onBeforeUnmount(() => {
   color: #ea4335;
 }
 
-
-.toTop-enter-active,
-.toTop-leave-active {
-  transition: all 0.3s;
+.scrollup-enter-active,
+.scrollup-leave-active {
+  transition: all 0.3s ease;
 }
-.toTop-enter-from,
-.toTop-leave-to {
-  opacity: 0;
+.scrollup-enter-from,
+.scrollup-leave-to {
   transform: translateY(20px);
 }
-
 
 </style>
 

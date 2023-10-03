@@ -9,15 +9,18 @@
       </h2>
     </template>
   </HeaderContainer>
-  <div class="flex max-w-screen-xl mx-auto my-5">
-    <ul class="flex flex-wrap">
-      <TeamCard v-for="team in teams" :key="team.id" :team="team"/>
-    </ul>
-  </div>
+  <PageLayout>
+    <template #content>
+      <ul class="col-start-2 col-span-10 flex flex-wrap">
+        <TeamCard v-for="team in teams" :key="team.id" :team="team"/>
+      </ul>
+    </template>
+  </PageLayout>
 </template>
 
 <script setup lang="ts">
 import HeaderContainer from '../components/Shared/HeaderContainer.vue'
+import PageLayout from '@/components/layouts/PageLayout.vue';
 import TeamCard from '@/components/Team/TeamCard.vue';
 import getTeams from '@/api/getTeams';
 import { ref, onMounted } from 'vue'

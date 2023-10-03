@@ -53,7 +53,7 @@ const router = useRouter()
 
 const jobsStore = useJobsStore()
 const { FETCH_JOBS } = jobsStore
-const { FILTERED_JOBS } = storeToRefs(jobsStore)
+const { FILTERED_JOBS, jobs } = storeToRefs(jobsStore)
 
 const currentPage = computed(() => parseInt((route.query.page as string) || '1'))
 
@@ -78,17 +78,22 @@ watch(skillSearchTerm, (newVal) => {
 const { FETCH_DEGREES } = useDegreesStore()
 
 const isLoadingJobs = ref(true);
-
 onMounted(async() => {
-  try {
-    await FETCH_JOBS()
-    await FETCH_DEGREES()
-  } catch (error) {
-    console.log(error)
-  } finally {
-    setTimeout(() => {
-      isLoadingJobs.value = false
-    }, 500);
+  if(jobs.value.length) {
+    isLoadingJobs.value = false
+  } 
+  if(!jobs.value.length) {
+    try {
+      isLoadingJobs.value = true
+      await FETCH_JOBS()
+      await FETCH_DEGREES()
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setTimeout(() => {
+        isLoadingJobs.value = false
+      }, 500);
+    }
   }
 })
 </script>
