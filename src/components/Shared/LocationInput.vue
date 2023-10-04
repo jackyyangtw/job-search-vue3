@@ -1,15 +1,30 @@
 <template>
-  <TextInput id="location" autocomplete="off" :modelValue="props.location" :modelModifiers="modelModifiers" @update:modelValue="updateValue" :boxShadow="boxShadow" placeholder="San Francisco, London, Michigan">
+  <TextInput
+    id="location"
+    autocomplete="off"
+    v-model="inputValue"
+    :boxShadow="boxShadow"
+    placeholder="San Francisco, London, Michigan"
+    @inputBlur="emit('inputBlur')"
+  >
     <template #related>
-      <transition name="fade">          
-        <div class="bg-white w-full max-h-[300px] absolute shadow-md"
-          :class="{'overflow-y-scroll': props.height >= 300}"
+      <transition name="fade">
+        <div
+          class="bg-white w-full max-h-[300px] absolute shadow-md"
+          :class="{ 'overflow-y-scroll': props.height >= 300 }"
           :style="props.relatedLocationRefPos"
           ref="relatedLoactionRef"
           v-show="props.location && props.showRelatedLocation"
         >
           <ul>
-            <li @click="setLocation(LOCATION)" class="px-3 py-2 cursor-pointer hover:bg-brand-gray-1/[0.3]" v-for="LOCATION in props.filered_UNIQUE_LOCATIONS" :key="(LOCATION as string)">{{ LOCATION }}</li>
+            <li
+              @click="setLocation(LOCATION)"
+              class="px-3 py-2 cursor-pointer hover:bg-brand-gray-1/[0.3]"
+              v-for="LOCATION in props.filered_UNIQUE_LOCATIONS"
+              :key="LOCATION"
+            >
+              {{ LOCATION }}
+            </li>
           </ul>
         </div>
       </transition>
@@ -18,17 +33,13 @@
 </template>
 
 <script setup lang="ts">
-import TextInput from './TextInput.vue';
-import { ref } from 'vue';
-import { useDebounceFn } from '@vueuse/core'
+import TextInput from "./TextInput.vue"
+import { ref, type PropType } from "vue"
+import { useVModel } from "@vueuse/core"
 const props = defineProps({
   modelValue: {
     type: String,
     required: true
-  },
-  modelModifiers: {
-    type: Object as () => { lazy?: boolean },
-    default: () => ({})
   },
   location: {
     type: String,
@@ -51,7 +62,7 @@ const props = defineProps({
     required: true
   },
   filered_UNIQUE_LOCATIONS: {
-    type: Array,
+    type: Array as PropType<string[]>,
     required: true
   },
   boxShadow: {
@@ -59,32 +70,22 @@ const props = defineProps({
     default: false
   }
 })
-const emit = defineEmits(['update:modelValue'])
-
-const debounceEmit = useDebounceFn((value: string) => {
-  emit('update:modelValue', value)
-}, 500)
-
-const updateValue = (value: string) => {
-  if(props.modelModifiers.lazy) {
-    debounceEmit(value)
-  } else {
-    emit('update:modelValue', value)
-  }
-}
+const emit = defineEmits(["update:modelValue", "inputBlur"])
+const inputValue = useVModel(props, "modelValue", emit)
 const relatedLoactionRef = ref(null)
 
 defineExpose({
   relatedLoactionRef
 })
-
 </script>
 
 <style scoped>
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.2s ease;
 }
-.fade-enter-from, .fade-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

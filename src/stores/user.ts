@@ -1,8 +1,7 @@
-import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { defineStore } from "pinia"
+import { ref } from "vue"
 
-
-export const useUserStore = defineStore('user', () => {
+export const useUserStore = defineStore("user", () => {
   const isLoggedIn = ref(false)
   const selectedOrganizations = ref<string[]>([])
   const selectedJobTypes = ref<string[]>([])
@@ -56,4 +55,3 @@ export const useUserStore = defineStore('user', () => {
     UPDATE_ROUTE_QUERY_SEARCH_TERM
   }
 })
-

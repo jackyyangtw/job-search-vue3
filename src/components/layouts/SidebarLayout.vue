@@ -1,16 +1,19 @@
 <template>
-  <div class="flex flex-col border-r border-solid border-brand-gray-1 bg-white p-4 w-96 fixed left-0 top:100 z-10 h-screen" :style="sidebarHeight">
-    <section class="pb-5">
+  <div
+    class="flex flex-col border-r border-solid border-brand-gray-1 bg-white w-full lg:w-96 fixed lg:left-0 z-10 h-screen"
+    :style="sidebarHeight"
+  >
+    <section class="pb-5 relative">
       <slot></slot>
     </section>
   </div>
 </template>
 
-
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useUIStore } from '@/stores/ui';
-import { storeToRefs } from 'pinia';
+import { ref, computed } from "vue"
+import { useUIStore } from "@/stores/ui"
+import { storeToRefs } from "pinia"
+// import ToJobsPageLink from "../Shared/ToJobsPageLink.vue"
 const SidebarLayoutRef = ref<HTMLElement | null>(null)
 defineExpose({
   SidebarLayoutRef

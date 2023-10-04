@@ -3,24 +3,23 @@
     type="text"
     class="w-full text-lg font-normal focus:outline-none"
     :class="hasBoxShadow"
-    :value="modelValue"
     :id="id"
     :placeholder="placeholder"
     :autocomplete="autocomplete"
-    @input="handleInput"
+    v-model="inputValue"
+    @blur="emit('inputBlur')"
   />
   <slot name="related"></slot>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed } from "vue"
+import { useVModel } from "@vueuse/core"
+
 const props = defineProps({
   modelValue: {
     type: String,
-    default: ''
-  },
-  modelModifiers: {
-    default: () => ({})
+    default: ""
   },
   id: {
     type: String,
@@ -28,26 +27,23 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
-    default: ''
+    default: ""
   },
   autocomplete: {
     type: String,
-    default: 'on'
+    default: "on"
   },
   boxShadow: {
     type: Boolean,
     default: false
   }
 })
-const emit = defineEmits(['update:modelValue', 'inputBlur','inputFocus', 'inputChange'])
+const emit = defineEmits(["update:modelValue", "inputBlur"])
+const inputValue = useVModel(props, "modelValue", emit)
 
-const handleInput = (event: Event) => {
-  const value = (event.target as HTMLInputElement).value
-  emit('update:modelValue', value)
-}
 const hasBoxShadow = computed(() => {
-  return props.boxShadow ? 'rounded border border-solid border-brand-gray-1 p-3 text-base shadow-gray' : ''
+  return props.boxShadow
+    ? "rounded border border-solid border-brand-gray-1 p-3 text-base shadow-gray"
+    : ""
 })
-
 </script>
-
