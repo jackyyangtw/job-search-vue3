@@ -42,11 +42,8 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'inputBlur','inputFocus', 'inputChange'])
 
 const handleInput = (event: Event) => {
-  // console.log(props.modelModifiers.lazy)
   const value = (event.target as HTMLInputElement).value
   emit('update:modelValue', value)
-  // if(props.modelModifiers.lazy) {
-  // }
 }
 const hasBoxShadow = computed(() => {
   return props.boxShadow ? 'rounded border border-solid border-brand-gray-1 p-3 text-base shadow-gray' : ''
