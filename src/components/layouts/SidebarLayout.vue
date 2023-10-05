@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col border-r border-solid border-brand-gray-1 bg-white w-full lg:w-96 fixed lg:left-0 z-10 h-screen"
+    class="flex flex-col border-r border-solid border-brand-gray-1 bg-white w-full lg:w-96 fixed lg:left-0 z-10"
     :style="sidebarHeight"
   >
     <section class="pb-5 relative">
@@ -13,16 +13,17 @@
 import { ref, computed } from "vue"
 import { useUIStore } from "@/stores/ui"
 import { storeToRefs } from "pinia"
-// import ToJobsPageLink from "../Shared/ToJobsPageLink.vue"
+import { useWindowSize } from "@vueuse/core"
 const SidebarLayoutRef = ref<HTMLElement | null>(null)
 defineExpose({
   SidebarLayoutRef
 })
+
 const uiStore = useUIStore()
 const { mainNavHeight } = storeToRefs(uiStore)
-
+const { height: windowHeight } = useWindowSize()
 const sidebarHeight = computed(() => {
-  const height = window.innerHeight - mainNavHeight.value
+  const height = windowHeight.value - mainNavHeight.value
   return {
     height: `${height}px`
   }

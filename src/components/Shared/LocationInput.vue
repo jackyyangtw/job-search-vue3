@@ -5,7 +5,7 @@
     v-model="inputValue"
     :boxShadow="boxShadow"
     placeholder="San Francisco, London, Michigan"
-    @inputBlur="emit('inputBlur')"
+    @clearInput="emit('clearInput')"
   >
     <template #related>
       <transition name="fade">
@@ -18,7 +18,7 @@
         >
           <ul>
             <li
-              @click="setLocation(LOCATION)"
+              @click="emit('setLocation', LOCATION)"
               class="px-3 py-2 cursor-pointer hover:bg-brand-gray-1/[0.3]"
               v-for="LOCATION in props.filered_UNIQUE_LOCATIONS"
               :key="LOCATION"
@@ -57,10 +57,6 @@ const props = defineProps({
     type: Boolean,
     required: true
   },
-  setLocation: {
-    type: Function,
-    required: true
-  },
   filered_UNIQUE_LOCATIONS: {
     type: Array as PropType<string[]>,
     required: true
@@ -70,7 +66,7 @@ const props = defineProps({
     default: false
   }
 })
-const emit = defineEmits(["update:modelValue", "inputBlur"])
+const emit = defineEmits(["update:modelValue", "clearInput", "setLocation"])
 const inputValue = useVModel(props, "modelValue", emit)
 const relatedLoactionRef = ref(null)
 

@@ -11,7 +11,7 @@
       />
     </CollapsibleAccordion>
 
-    <CollapsibleAccordion header="Location">
+    <CollapsibleAccordion header="Location" :shouldOpenInitially="locationInputOpenInitally">
       <JobFiltersSidebarLocations />
     </CollapsibleAccordion>
 
@@ -44,6 +44,8 @@ import { useJobsStore } from "@/stores/jobs"
 import { useUserStore } from "@/stores/user"
 import { useDegreesStore } from "@/stores/degrees"
 import { storeToRefs } from "pinia"
+import { ref } from "vue"
+import { useRoute } from "vue-router"
 
 const jobsStore = useJobsStore()
 const { UNIQUE_ORGANIZATIONS, UNIQUE_JOB_TYPES } = storeToRefs(jobsStore)
@@ -53,4 +55,10 @@ const { UNIQUE_DEGREES } = storeToRefs(degreesStore)
 
 const userStore = useUserStore()
 const { ADD_SELECTED_ORGANIZATION, ADD_SELECTED_JOB_TYPE, ADD_SELECTED_DEGREE } = userStore
+
+const locationInputOpenInitally = ref(false)
+const route = useRoute()
+if (route.query.location) {
+  locationInputOpenInitally.value = true
+}
 </script>

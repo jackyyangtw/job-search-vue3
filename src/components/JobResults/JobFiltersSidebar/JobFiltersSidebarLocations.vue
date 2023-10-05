@@ -1,35 +1,44 @@
 <template>
   <div class="mt-2 relative">
     <LocationInput
-      :location="locationSearchTerm"
+      :location="localLocationSearchTerm"
       :relatedLocationRefPos="relatedLocationRefPos"
       :height="elementHeight"
       :showRelatedLocation="showRelatedLocation"
-      :setLocation="setLocation"
       :filered_UNIQUE_LOCATIONS="filered_UNIQUE_LOCATIONS"
-      v-model="locationSearchTerm"
+      v-model="localLocationSearchTerm"
       ref="locationInputRef"
       boxShadow
-      @inputBlur="blurHandler"
+      @clearInput="clearInputHandler"
+      @setLocation="setLocationHandler"
     ></LocationInput>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, type Ref, computed } from "vue"
+import { ref, type Ref, watch } from "vue"
 import { useUserStore } from "@/stores/user"
 import LocationInput from "@/components/Shared/LocationInput.vue"
 import { useRelatedLocation } from "@/composables/useRelatedLocation"
+import { useRoute } from "vue-router"
+
 const userStore = useUserStore()
 
-const locationSearchTerm = ref("")
-if (locationSearchTerm.value === "") {
-  locationSearchTerm.value = userStore.locationSearchTerm
+const localLocationSearchTerm = ref("")
+const route = useRoute()
+if (route.query.location) {
+  localLocationSearchTerm.value = route.query.location as string
 }
 
-const blurHandler = () => {
-  userStore.UPDATE_LOCATION_SEARCH_TERM(locationSearchTerm.value)
-}
+// click "Clear Filter" button and clear input
+watch(
+  () => userStore.locationSearchTerm,
+  (newVal) => {
+    if (newVal === "") {
+      localLocationSearchTerm.value = ""
+    }
+  }
+)
 
 const locationInputRef = ref<HTMLElement | null>(null)
 const {
@@ -38,5 +47,15 @@ const {
   setLocation,
   elementHeight,
   filered_UNIQUE_LOCATIONS
-} = useRelatedLocation(locationInputRef as Ref<HTMLElement>, locationSearchTerm)
+} = useRelatedLocation(locationInputRef as Ref<HTMLElement>, localLocationSearchTerm)
+
+const setLocationHandler = (location: string) => {
+  setLocation(location)
+  userStore.UPDATE_LOCATION_SEARCH_TERM(location)
+}
+
+const clearInputHandler = () => {
+  localLocationSearchTerm.value = ""
+  userStore.UPDATE_LOCATION_SEARCH_TERM("")
+}
 </script>

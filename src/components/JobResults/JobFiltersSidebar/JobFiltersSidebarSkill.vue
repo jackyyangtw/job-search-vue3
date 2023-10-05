@@ -1,20 +1,36 @@
 <template>
   <div class="mt-2">
-    <input 
-      type="text" 
-      class="h-12 w-full rounded border border-solid border-brand-gray-1 p-3 text-base shadow-gray"
-      placeholder="What do you want to do?" 
-      v-model.lazy.trim="skillSearchTerm"
-    >
+    <div class="relative">
+      <TextInput
+        v-model="localSkillSearchTerm"
+        id="skill"
+        boxShadow
+        placeholder="What do you want to do?"
+        @clearInput="clearInputHandler"
+        @inputBlur="UPDATE_SKILL_SEARCH_TERM(localSkillSearchTerm)"
+        @enterKey="UPDATE_SKILL_SEARCH_TERM(localSkillSearchTerm)"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useUserStore } from '@/stores/user';
-const userStore = useUserStore();
-const skillSearchTerm = computed({
-  get: () => userStore.skillSearchTerm,
-  set: (value) => userStore.UPDATE_SKILL_SEARCH_TERM(value),
-});
+import { ref } from "vue"
+import { useUserStore } from "@/stores/user"
+import TextInput from "@/components/Shared/TextInput.vue"
+import { useRoute } from "vue-router"
+
+const userStore = useUserStore()
+const { UPDATE_SKILL_SEARCH_TERM } = userStore
+
+const localSkillSearchTerm = ref("")
+const route = useRoute()
+if (route.query.role) {
+  localSkillSearchTerm.value = route.query.role as string
+}
+
+const clearInputHandler = () => {
+  localSkillSearchTerm.value = ""
+  UPDATE_SKILL_SEARCH_TERM("")
+}
 </script>

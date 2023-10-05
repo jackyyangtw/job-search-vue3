@@ -5,7 +5,12 @@
     >
       <font-awesome-icon :icon="['fas', 'search']" class="ml-4 mr-3"></font-awesome-icon>
       <label for="role" class="absolute left-0 -top-10">Role</label>
-      <TextInput id="role" placeholder="Software engineer" v-model="role"></TextInput>
+      <TextInput
+        id="role"
+        placeholder="Software engineer"
+        v-model="role"
+        @clearInput="role = ''"
+      ></TextInput>
     </div>
     <div
       class="relative flex w-full h-full items-center pr-3 border border-solid border-brand-gray-3 p-3 rounded-full mt-14 2xl:mt-0 2xl:mr-5"
@@ -17,10 +22,11 @@
         :relatedLocationRefPos="relatedLocationRefPos"
         :height="elementHeight"
         :showRelatedLocation="showRelatedLocation"
-        :setLocation="setLocation"
         :filered_UNIQUE_LOCATIONS="filered_UNIQUE_LOCATIONS"
         v-model="location"
         ref="locationInputRef"
+        @setLocation="setLocationHandler"
+        @clearInput="location = ''"
       ></LocationInput>
     </div>
     <ActionButton
@@ -47,6 +53,10 @@ const {
   elementHeight,
   filered_UNIQUE_LOCATIONS
 } = useRelatedLocation(locationInputRef as Ref<HTMLElement>, location)
+
+const setLocationHandler = (locationString: string) => {
+  setLocation(locationString)
+}
 
 // search for jobs
 const router = useRouter()

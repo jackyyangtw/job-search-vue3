@@ -9,27 +9,30 @@
     >
       <div class="mx-8 border-b border-solid border-brand-gray-2 pt-5 pb-2">
         <h2 class="mb-2 text-2xl">{{ job.title }}</h2>
-        <div class="flex flex-row align-middle">
-          <div class="mr-5">
-            <FontAwesomeIcon icon="building" class="mr-3"/>
+        <div class="flex flex-wrap flex-row align-middle">
+          <div class="mr-5 my-1">
+            <FontAwesomeIcon icon="building" class="mr-3" />
             <span>{{ job.organization }}</span>
           </div>
-          <ul class="mr-5">
+          <ul class="mr-5 my-1">
             <FontAwesomeIcon icon="location-dot" class="mr-3" />
-            <li class="inline-block" v-for="(location,index) in job.locations" :key="location"
-            :class="{'mr-4': index !== locationsCount - 1}"
+            <li
+              class="inline-block"
+              v-for="(location, index) in job.locations"
+              :key="location"
+              :class="{ 'mr-4': index !== locationsCount - 1 }"
             >
-                <span>
-                  {{ location }}
-                </span>
-                <span v-if="index !== locationsCount - 1 && job.locations.length > 1">,</span>
+              <span>
+                {{ location }}
+              </span>
+              <span v-if="index !== locationsCount - 1 && job.locations.length > 1">,</span>
             </li>
           </ul>
-          <div class="mr-5">
+          <div class="mr-5 my-1">
             <FontAwesomeIcon class="mr-3" icon="fa-chart-simple" />
             <span> {{ job.degree }}</span>
           </div>
-          <div class="mr-5">
+          <div class="mr-5 my-1">
             <FontAwesomeIcon class="mr-3" icon="fa-clock" />
             <span> {{ job.jobType }}</span>
           </div>
@@ -56,9 +59,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type PropType, toRefs } from 'vue'
-import type { Job } from '@/api/types'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { computed, type PropType, toRefs } from "vue"
+import type { Job } from "@/api/types"
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 // import JobRes
 const props = defineProps({
   job: {
@@ -77,4 +80,3 @@ const locationsCount = computed(() => job.value.locations.length)
 
 const jobPageLink = computed(() => `/jobs/results/${props.job.id}`)
 </script>
-

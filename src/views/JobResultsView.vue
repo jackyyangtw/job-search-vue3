@@ -9,10 +9,10 @@
     </div>
     <!-- mobile sidebar control -->
 
-    <JobFiltersSidebar v-if="isLargeScreen" />
+    <JobFiltersSidebar v-show="isLargeScreen" />
     <transition name="fade-left">
       <JobFiltersSideBarMobile
-        v-if="!isLargeScreen && isMobileSidebarOpen"
+        v-show="!isLargeScreen && isMobileSidebarOpen"
         @closeSidebar="toggleMobileSidebar"
       />
     </transition>

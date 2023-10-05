@@ -75,7 +75,6 @@ const displayedJobs = computed(() => {
   const lastIndex = page * 10
   return FILTERED_JOBS.value.slice(firstIndex, lastIndex) as Job[]
 })
-console.log(router)
 const userStore = useUserStore()
 const { skillSearchTerm } = storeToRefs(userStore)
 watch(skillSearchTerm, (newVal) => {
