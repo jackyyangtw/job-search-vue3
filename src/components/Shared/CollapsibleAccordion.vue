@@ -1,5 +1,5 @@
 <template>
-  <div class="border-b border-solid border-brand-gray-2 py-5">
+  <div class="border-b border-solid border-brand-gray-1 py-5">
     <div
       role="button"
       class="flex cursor-pointer flex-wrap items-center justify-between"
