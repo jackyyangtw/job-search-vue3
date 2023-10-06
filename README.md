@@ -116,3 +116,9 @@ copyArray<boolean>([true,false])
 1. mock axios.get: const axiosGetMock = axios.get as Mock
 
 ## Typescript and Vue
+
+## Deploy to gh-pages
+
+1. git add dist -f
+2. git commit -m "adding dist"
+3. git subtree push --prefix dist origin gh-pages

@@ -16,5 +16,5 @@ export default defineConfig({
     globals: true,
     setupFiles: ["./tests/setup.ts"]
   },
-  base: "/job-search-vue3/"
+  base: "/job-search-vue3"
 })

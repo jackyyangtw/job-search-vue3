@@ -78,5 +78,5 @@ const { job } = toRefs(props)
 
 const locationsCount = computed(() => job.value.locations.length)
 
-const jobPageLink = computed(() => `/jobs/results/${props.job.id}`)
+const jobPageLink = computed(() => `/job-search-vue3/jobs/results/${props.job.id}`)
 </script>

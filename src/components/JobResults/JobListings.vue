@@ -78,7 +78,7 @@ const displayedJobs = computed(() => {
 const userStore = useUserStore()
 const { skillSearchTerm } = storeToRefs(userStore)
 watch(skillSearchTerm, (newVal) => {
-  if (router.options.history.state.back === "/") return
+  if (router.options.history.state.back === "/job-search-vue3") return
   if (newVal !== "") {
     router.push({ name: "JobResults", query: { page: 1 } })
   }

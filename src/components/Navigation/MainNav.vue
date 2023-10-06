@@ -4,7 +4,9 @@
       <div
         class="mx-auto flex flex-nowrap h-full border-b border-solid border-brand-gray-1 px-8 py-3"
       >
-        <router-link to="/" class="flex h-full items-center text-xl">Vue Career</router-link>
+        <router-link to="/job-search-vue3" class="flex h-full items-center text-xl"
+          >Vue Career</router-link
+        >
         <nav class="ml-12 h-full">
           <ul class="flex h-full list-none">
             <li class="ml-9 first:ml-0 h-full" v-for="item in menuItems" :key="item.text">
@@ -25,21 +27,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import ActionButton from '@/components/Shared/ActionButton.vue'
-import ProfileImage from './ProfileImage.vue'
-import TheSubnav from '@/components/Navigation/TheSubnav.vue'
-import { useUserStore } from '@/stores/user'
-import { useUIStore } from '@/stores/ui'
-import { useElementSize } from '@vueuse/core'
+import { ref, computed, onMounted } from "vue"
+import ActionButton from "@/components/Shared/ActionButton.vue"
+import ProfileImage from "./ProfileImage.vue"
+import TheSubnav from "@/components/Navigation/TheSubnav.vue"
+import { useUserStore } from "@/stores/user"
+import { useUIStore } from "@/stores/ui"
+import { useElementSize } from "@vueuse/core"
 
 const menuItems = ref([
-  { text: 'Teams', url: '/teams' },
+  { text: "Teams", url: "/job-search-vue3/teams" },
   // { text: 'Locations', url: '/' },
   // { text: 'Life at Vue Corp', url: '/' },
   // { text: 'How we hire', url: '/' },
   // { text: 'Students', url: '/' },
-  { text: 'Jobs', url: '/jobs/results' }
+  { text: "Jobs", url: "/job-search-vue3/jobs/results" }
 ])
 
 const userStore = useUserStore()
@@ -47,8 +49,8 @@ const { login } = userStore
 const isLoggedIn = computed(() => userStore.isLoggedIn)
 const headerHeight = computed(() => {
   return {
-    'h-16': !isLoggedIn.value,
-    'h-32': isLoggedIn.value
+    "h-16": !isLoggedIn.value,
+    "h-32": isLoggedIn.value
   }
 })
 
@@ -59,5 +61,4 @@ onMounted(() => {
   const mainNavHeight = mainNavRef.value?.offsetHeight as number
   getMainNavHeight(mainNavHeight)
 })
-
 </script>

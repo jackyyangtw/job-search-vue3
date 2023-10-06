@@ -1,6 +1,6 @@
 <template>
   <router-link
-    :to="`/jobs/results/${linkParams}`"
+    :to="`/job-search-vue3/jobs/results/${linkParams}`"
     class="my-6 p-5 block rounded border border-solid border-brand-gray-3 hover:border-brand-blue-1 hover:bg-black/[0.05]"
   >
     <div ref="cardRef">
