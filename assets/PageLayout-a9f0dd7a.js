@@ -1,1 +1,0 @@
-import{_ as t}from"./_plugin-vue_export-helper-c27b6911.js";import{b as e,e as c,z as a,f as s}from"./index-c9d37479.js";const n={},r={class:"grid grid-cols-12"},l=s("div",{class:"col-start-1 col-span-1"},null,-1),_=s("div",{class:"col-start-12 col-span-1"},null,-1);function d(o,i){return e(),c("div",r,[l,a(o.$slots,"content"),_])}const m=t(n,[["render",d]]);export{m as P};
