@@ -8,7 +8,7 @@
       <h3 class="text-base font-semibold">{{ props.header }}</h3>
       <font-awesome-icon :icon="caretIcon" />
     </div>
-    <div v-if="props.shouldOpenInitially || isOpen">
+    <div v-show="isOpen || props.shouldOpenInitially">
       <slot>Whoops, somebody forgot to populate me!</slot>
     </div>
   </div>
@@ -32,9 +32,12 @@ const props = defineProps({
 const isOpen = ref(false)
 
 const caretIcon = computed(() => {
-  return isOpen.value ? ["fas", "angle-up"] : ["fas", "angle-down"]
+  return isOpen.value || props.shouldOpenInitially ? ["fas", "angle-up"] : ["fas", "angle-down"]
 })
+
+const emit = defineEmits(["toggleAccordion"])
 const toggleAccordion = () => {
   isOpen.value = !isOpen.value
+  emit("toggleAccordion", isOpen.value)
 }
 </script>

@@ -15,15 +15,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, watch } from "vue"
 import { useUserStore } from "@/stores/user"
 import TextInput from "@/components/Shared/TextInput.vue"
 import { useRoute } from "vue-router"
 
 const userStore = useUserStore()
 const { UPDATE_SKILL_SEARCH_TERM } = userStore
-
 const localSkillSearchTerm = ref("")
+watch(
+  () => userStore.skillSearchTerm,
+  (newval) => {
+    if (newval === "") {
+      localSkillSearchTerm.value = ""
+    }
+  }
+)
+
 const route = useRoute()
 if (route.query.role) {
   localSkillSearchTerm.value = route.query.role as string

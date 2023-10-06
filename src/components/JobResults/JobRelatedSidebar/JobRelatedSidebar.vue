@@ -1,7 +1,7 @@
 <template>
   <SidebarLayout class="overflow-y-scroll" ref="jobRelatedSideBarLayoutRef">
-    <ToJobsPageLink />
-    <div class="p-4">
+    <ToJobsPageLink class="translate-y-[-20px]" />
+    <div>
       <div>
         Other jobs of
         <span class="text-brand-blue-1 ml-2 font-bold"
