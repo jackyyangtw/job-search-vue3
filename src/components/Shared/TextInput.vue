@@ -53,12 +53,14 @@ const props = defineProps({
 })
 const emit = defineEmits(["update:modelValue", "clearInput", "inputBlur", "enterKey"])
 
+// input gains values
 const onInput = (e: Event) => {
   if (!props.modelModifiers.lazy) {
     emit("update:modelValue", (e.target as HTMLInputElement).value)
   }
 }
 
+// input loses focus
 const onChange = (e: Event) => {
   if (props.modelModifiers.lazy) {
     emit("update:modelValue", (e.target as HTMLInputElement).value)
