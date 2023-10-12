@@ -29,7 +29,6 @@ const route = useRoute()
 if (route.query.location) {
   localLocationSearchTerm.value = route.query.location as string
 }
-
 // click "Clear Filter" button and clear input
 watch(
   () => userStore.locationSearchTerm,

@@ -6,9 +6,10 @@
     :id="id"
     :placeholder="placeholder"
     :autocomplete="autocomplete"
-    v-model="inputValue"
-    @blur="emit('inputBlur')"
-    @keyup.enter="emit('enterKey')"
+    :value="modelValue"
+    @change="onChange"
+    @input="onInput"
+    v-bind="$attrs"
   />
   <transition name="fade-in">
     <font-awesome-icon
@@ -23,12 +24,15 @@
 
 <script lang="ts" setup>
 import { computed } from "vue"
-import { useVModel } from "@vueuse/core"
 
 const props = defineProps({
   modelValue: {
     type: String,
     default: ""
+  },
+  modelModifiers: {
+    type: Object,
+    default: () => ({})
   },
   id: {
     type: String,
@@ -48,7 +52,18 @@ const props = defineProps({
   }
 })
 const emit = defineEmits(["update:modelValue", "clearInput", "inputBlur", "enterKey"])
-const inputValue = useVModel(props, "modelValue", emit)
+
+const onInput = (e: Event) => {
+  if (!props.modelModifiers.lazy) {
+    emit("update:modelValue", (e.target as HTMLInputElement).value)
+  }
+}
+
+const onChange = (e: Event) => {
+  if (props.modelModifiers.lazy) {
+    emit("update:modelValue", (e.target as HTMLInputElement).value)
+  }
+}
 
 const hasBoxShadow = computed(() => {
   return props.boxShadow
