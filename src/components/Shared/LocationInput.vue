@@ -11,16 +11,16 @@
       <transition name="fade">
         <div
           class="bg-white w-full max-h-[300px] absolute shadow-md"
-          :class="{ 'overflow-y-scroll': props.height >= 300 }"
-          :style="props.relatedLocationRefPos"
+          :class="{ 'overflow-y-scroll': height >= 300 }"
+          :style="relatedLocationRefPos"
           ref="relatedLoactionRef"
-          v-show="props.location && props.showRelatedLocation"
+          v-show="location && showRelatedLocation"
         >
           <ul>
             <li
               @click="emit('setLocation', LOCATION)"
               class="px-3 py-2 cursor-pointer hover:bg-brand-gray-1/[0.3]"
-              v-for="LOCATION in props.filered_UNIQUE_LOCATIONS"
+              v-for="LOCATION in filered_UNIQUE_LOCATIONS"
               :key="LOCATION"
             >
               {{ LOCATION }}

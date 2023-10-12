@@ -19,9 +19,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useUserStore } from '@/stores/user';
+import { ref } from "vue"
+import { useRouter } from "vue-router"
+import { useUserStore } from "@/stores/user"
 
 const props = defineProps({
   uniqueValues: {
@@ -39,13 +39,13 @@ const selectedVal = ref<string[]>([])
 
 const selectVal = () => {
   props.action(selectedVal.value)
-  router.push({ name: 'JobResults' })
+  router.push({ name: "JobResults" })
 }
 
 const userStore = useUserStore()
-userStore.$onAction(({after,name}) => {
+userStore.$onAction(({ after, name }) => {
   after(() => {
-    if (name === 'CLEAR_USER_JOB_FILTER_SELECTIONS') {
+    if (name === "CLEAR_USER_JOB_FILTER_SELECTIONS") {
       selectedVal.value = []
     }
   })
