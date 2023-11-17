@@ -13,10 +13,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from "vue"
+import { computed } from "vue"
 import { useUserStore } from "@/stores/user"
 import TextInput from "@/components/Shared/TextInput.vue"
-import { useRoute } from "vue-router"
 
 const userStore = useUserStore()
 const { UPDATE_SKILL_SEARCH_TERM } = userStore

@@ -1,24 +1,21 @@
 <template>
   <div class="flex flex-col lg:flex-row flex-no-wrap w-full relative bg-brand-gray-2">
-    <!-- mobile sidebar control -->
-    <div class="mobile-sidebar-control px-8 py-5 flex bg-white" v-show="!isLargeScreen">
-      <div class="cursor-pointer mr-3" @click="toggleMobileSidebar">
-        <font-awesome-icon class="text-2xl" :icon="['fas', 'filter']" />
-      </div>
-      <JobMatchedText />
-    </div>
-    <!-- mobile sidebar control -->
+
+    <JobFilterSidebarMobileFilter :isLargeScreen="isLargeScreen" :toggleMobileSidebar="toggleMobileSidebar"/>
+
     <transition name="fade-right">
       <JobFiltersSidebar v-show="isSidebarOpen" @closeSidebar="closeSidebarHandler" />
     </transition>
+    
     <JobListings />
+
   </div>
 </template>
 
 <script setup lang="ts">
 import JobFiltersSidebar from "@/components/JobResults/JobFiltersSidebar/JobFiltersSidebar.vue"
+import JobFilterSidebarMobileFilter from "@/components/JobResults/JobFiltersSidebar/JobFilterSidebarMobileFilter.vue"
 import JobListings from "@/components/JobResults/JobListings.vue"
-import JobMatchedText from "@/components/Shared/JobMatchedText.vue"
 import { useMediaQuery } from "@vueuse/core"
 import { ref, onMounted, watchEffect } from "vue"
 import { useRoute } from "vue-router"

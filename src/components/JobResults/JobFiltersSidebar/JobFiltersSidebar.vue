@@ -1,12 +1,7 @@
 <template>
   <SidebarLayout>
-    <div
-      @click="emit('closeSidebar')"
-      class="mobile-header flex lg:hidden w-full bg-white cursor-pointer py-3 items-center text-3xl"
-    >
-      <font-awesome-icon class="mr-5" :icon="['fas', 'circle-xmark']" />
-      <h3>Filters</h3>
-    </div>
+
+    <JobFiltersSideBarMobileControl @click="emit('closeSidebar')"/>
 
     <JobFiltersSidebarPrompt />
 
@@ -51,8 +46,9 @@ import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue"
 import JobFiltersSidebarPrompt from "./JobFiltersSidebarPrompt.vue"
 import JobFiltersSidebarCheckboxGroup from "./JobFiltersSidebarCheckboxGroup.vue"
 import JobFiltersSidebarSkill from "./JobFiltersSidebarSkill.vue"
-import SidebarLayout from "@/components/layouts/SidebarLayout.vue"
 import JobFiltersSidebarLocations from "./JobFiltersSidebarLocations.vue"
+import JobFiltersSideBarMobileControl from "./JobFiltersSideBarMobileControl.vue"
+import SidebarLayout from "@/components/layouts/SidebarLayout.vue"
 import { useJobsStore } from "@/stores/jobs"
 import { useUserStore } from "@/stores/user"
 import { useDegreesStore } from "@/stores/degrees"
