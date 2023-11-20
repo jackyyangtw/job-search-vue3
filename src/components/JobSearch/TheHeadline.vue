@@ -1,8 +1,11 @@
 <template>
   <section class="mb-16">
     <h1 class="mb-14 text-7xl md:text-8xl font-bold tracking-tighter">
-      <span :class="headLineClass">{{ headLine }}</span> 
-      <br />
+      <div class="relative" style="height: 100px">
+        <transition name="slide-up">
+          <span class="block absolute" :class="headLineClass" :key="headLine">{{ headLine }}</span>
+        </transition>
+      </div>
       for everyone
     </h1>
     <h2 class="text-3xl font-light">Find your next job at Vue Corp.</h2>
@@ -19,7 +22,7 @@ const headLineClass = computed(() => {
     [headLine.value.toLowerCase()]: true
   }
 })
-const timeout = 1000
+const timeout = 2000
 const changeHeadline = () => {
   const actions = ['Build', 'Create', 'Design', 'Code']
   timer.value = setInterval(() => {
@@ -51,13 +54,17 @@ onBeforeUnmount(() => {
   color: #ea4335;
 }
 
-.scrollup-enter-active,
-.scrollup-leave-active {
-  transition: all 0.3s ease;
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: 0.3s ease;
 }
-.scrollup-enter-from,
-.scrollup-leave-to {
-  transform: translateY(20px);
+.slide-up-enter-from{
+  transform: translateY(30%);
+  opacity: 0;
+}
+.slide-up-leave-to  {
+  transform: translateY(-30%);
+  opacity: 0;
 }
 
 </style>
