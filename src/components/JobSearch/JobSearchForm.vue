@@ -1,8 +1,6 @@
 <template>
   <form class="2xl:flex" @submit.prevent="searchForJobs">
-    <div
-      class="relative flex w-full h-full items-center pr-3 border border-solid border-brand-gray-3 p-3 rounded-full 2xl:mr-5"
-    >
+    <div class="input-container">
       <font-awesome-icon :icon="['fas', 'search']" class="ml-4 mr-3"></font-awesome-icon>
       <label for="role" class="absolute left-0 -top-10">Role</label>
       <TextInput
@@ -12,9 +10,7 @@
         @clearInput="role = ''"
       ></TextInput>
     </div>
-    <div
-      class="relative flex w-full h-full items-center pr-3 border border-solid border-brand-gray-3 p-3 rounded-full mt-14 2xl:mt-0 2xl:mr-5"
-    >
+    <div class="input-container mt-14 2xl:mt-0">
       <font-awesome-icon :icon="['fas', 'location-dot']" class="ml-4 mr-3" />
       <label for="location" class="absolute left-0 -top-10">Where?</label>
       <LocationInput
@@ -81,5 +77,9 @@ const searchForJobs = () => {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.input-container {
+  @apply relative flex w-full h-full items-center pr-3 border border-solid border-brand-gray-3 p-3 rounded-full 2xl:mr-5
 }
 </style>

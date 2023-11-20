@@ -20,18 +20,13 @@ import ToJobsPageLink from "@/components/Shared/ToJobsPageLink.vue"
 import { useUIStore } from "@/stores/ui"
 import { storeToRefs } from "pinia"
 import type { Job } from "@/api/types"
-import { type PropType, toRefs, ref, watchEffect, computed } from "vue"
+import { toRefs, ref, watchEffect, computed } from "vue"
 import { useRoute } from "vue-router"
-const props = defineProps({
-  jobs: {
-    type: Array as PropType<Job[]>,
-    required: true
-  },
-  job: {
-    type: Object as PropType<Job>,
-    required: true
-  }
-})
+
+const props = defineProps<{
+  jobs: Job[]
+  job: Job
+}>()
 
 const { job } = toRefs(props)
 

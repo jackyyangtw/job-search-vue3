@@ -12,12 +12,15 @@
     v-bind="$attrs"
   />
   <transition name="fade-in">
-    <font-awesome-icon
+    <div
       @click="emit('clearInput')"
-      :icon="['fas', 'circle-xmark']"
+      class="absolute right-1 top-1 cursor-pointer text-brand-blue-1 bg:white w-[45px] h-[45px] bg-white flex items-center justify-center rounded-full"
       v-if="modelValue"
-      class="absolute right-5 top-5 cursor-pointer text-brand-blue-1"
-    />
+      >
+      <font-awesome-icon
+        :icon="['fas', 'circle-xmark']"
+      />
+    </div>
   </transition>
   <slot name="related"></slot>
 </template>
@@ -83,4 +86,5 @@ const hasBoxShadow = computed(() => {
 .fade-in-leave-to {
   opacity: 0;
 }
+
 </style>

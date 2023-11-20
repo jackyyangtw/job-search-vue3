@@ -17,6 +17,7 @@ const props = defineProps({
     default: 'primary'
   }
 })
+
 const btnClasses = computed(() => {
   return {
     [props.type]: true

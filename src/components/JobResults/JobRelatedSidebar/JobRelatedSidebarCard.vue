@@ -18,13 +18,11 @@
 
 <script setup lang="ts">
 import type { Job } from "@/api/types"
-import { ref, type Ref, type PropType } from "vue"
-const props = defineProps({
-  job: {
-    type: Object as PropType<Job>,
-    required: true
-  }
-})
+import { ref, type Ref } from "vue"
+
+const props = defineProps<{
+  job: Job
+}>()
 
 const locationsCount = props.job.locations.length
 

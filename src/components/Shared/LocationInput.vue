@@ -66,6 +66,7 @@ const props = defineProps({
     default: false
   }
 })
+
 const emit = defineEmits(["update:modelValue", "clearInput", "setLocation"])
 const inputValue = useVModel(props, "modelValue", emit)
 const relatedLoactionRef = ref(null)

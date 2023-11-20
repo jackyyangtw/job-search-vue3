@@ -16,18 +16,11 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue"
-// import { useRoute } from "vue-router"
 
-const props = defineProps({
-  header: {
-    type: String,
-    required: true
-  },
-  shouldOpenInitially: {
-    type: Boolean,
-    default: false
-  }
-})
+const props = defineProps<{
+  header: string
+  shouldOpenInitially?: boolean
+}>()
 
 const isOpen = ref(false)
 

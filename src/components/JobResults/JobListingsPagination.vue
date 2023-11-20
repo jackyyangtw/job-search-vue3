@@ -32,12 +32,15 @@ import { useRoute } from "vue-router"
 import { storeToRefs } from "pinia";
 import { useJobsStore } from "@/stores/jobs"
 import { usePrevAndNextPage } from "@/composables/usePrevAndNextPage"
+
 defineProps<{
   isLoadingJobs: boolean
 }>()
+
 const route = useRoute()
 const jobsStore = useJobsStore()
 const { FILTERED_JOBS } = storeToRefs(jobsStore)
+
 const currentPage = computed(() => parseInt((route.query.page as string) || "1"))
 const maxPage = computed(() => Math.ceil(FILTERED_JOBS.value.length / 10))
 const { prevPage, nextPage } = usePrevAndNextPage(currentPage, maxPage)

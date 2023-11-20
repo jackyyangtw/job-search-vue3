@@ -11,6 +11,6 @@
 import JobMatchedText from "@/components/Shared/JobMatchedText.vue"
 const {} = defineProps<{
   isLargeScreen: boolean
-  toggleMobileSidebar: () => void
+  toggleMobileSidebar?: () => void
 }>()
 </script>

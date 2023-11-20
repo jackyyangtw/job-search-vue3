@@ -59,20 +59,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type PropType, toRefs } from "vue"
+import { computed, toRefs } from "vue"
 import type { Job } from "@/api/types"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 // import JobRes
-const props = defineProps({
-  job: {
-    type: Object as PropType<Job>,
-    required: true
-  },
-  element: {
-    type: String,
-    required: true
-  }
-})
+const props = defineProps<{
+  job: Job
+  element: string
+}>()
 
 const { job } = toRefs(props)
 

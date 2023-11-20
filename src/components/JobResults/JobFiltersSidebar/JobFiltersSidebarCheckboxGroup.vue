@@ -23,16 +23,10 @@ import { ref } from "vue"
 import { useRouter } from "vue-router"
 import { useUserStore } from "@/stores/user"
 
-const props = defineProps({
-  uniqueValues: {
-    type: Set<string>,
-    required: true
-  },
-  action: {
-    type: Function,
-    required: true
-  }
-})
+const props = defineProps<{
+  uniqueValues: Set<string>
+  action: (selectedVal: string[]) => void
+}>()
 
 const router = useRouter()
 const selectedVal = ref<string[]>([])

@@ -11,12 +11,16 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-const props = defineProps({
+
+const props = defineProps<{
   team: {
-    type: Object,
-    required: true
-  },
-})
+    name: string
+    description: string
+    image: string
+    querys: string[]
+  }
+}>()
+
 const teamJobsLink = computed(() => {
   const querys = props.team.querys.join(' ')
   return {
